@@ -50,7 +50,7 @@ void Mesh::SetMesh(Primitive type)
 		indices = new unsigned int[0];
 		break;
 	case Mesh::RECT:
-		MeshPrimitives::Create2DRect(1,1,)
+		MeshPrimitives::Create2DRect(1, 1,vertices, indices);
 		break;
 	case Mesh::CIRCLE:
 		break;

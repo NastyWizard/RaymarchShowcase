@@ -48,7 +48,6 @@ int main()
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
-	delete testShader;
 	glfwTerminate();
 	return 0;
 }
@@ -69,9 +68,7 @@ void ProcessInput(GLFWwindow *window)
 void Init() 
 {
 	//std::unique_ptr<Shader> testShader(new Shader("Shaders/default.vert", "Shaders/default.frag"));
-	testShader = new Shader("Shaders/default.vert", "Shaders/default.frag");
-
-
+	
 }
 
 void Update() 
@@ -82,8 +79,6 @@ void Update()
 void RenderScreen() 
 {
 	ClearScreen();
-
-	testShader->UseShader();
 
 }
 
