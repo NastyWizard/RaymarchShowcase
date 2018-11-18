@@ -1,8 +1,5 @@
 #pragma once
 #include <math.h>
-typedef Vector2 vec2;
-typedef Vector3 vec3;
-
 class Vector2
 {
 	// variables
@@ -34,7 +31,7 @@ public:
 
 	Vector2 GetNormalized()
 	{
-		vec2 norm;
+		Vector2 norm;
 		norm.Set(x, y);
 		norm /= GetLength();
 		return norm;
@@ -55,14 +52,14 @@ public:
 
 	Vector2 operator*(float n)
 	{
-		vec2 nVec;
+		Vector2 nVec;
 		nVec.x = x * n;
 		nVec.y = y * n;
 		return nVec;
 	}
 	Vector2 operator/(float n)
 	{
-		vec2 nVec;
+		Vector2 nVec;
 		nVec.x = x / n;
 		nVec.y = y / n;
 		return nVec;
@@ -101,7 +98,7 @@ public:
 
 	static Vector3 Cross(Vector3 a, Vector3 b) 
 	{
-		vec3 cross;
+		Vector3 cross;
 		cross.x = (a.y * b.z) - (a.z * b.y);
 		cross.y = (a.z * b.x) - (a.x * b.z);
 		cross.z = (a.x * b.y) - (a.y * b.x);
@@ -129,7 +126,7 @@ public:
 
 	Vector3 GetNormalized()
 	{
-		vec3 norm;
+		Vector3 norm;
 		norm.Set(x, y, z);
 		norm /= GetLength();
 		return norm;
@@ -150,7 +147,7 @@ public:
 
 	Vector3 operator*(float n)
 	{
-		vec3 nVec;
+		Vector3 nVec;
 		nVec.x = x * n;
 		nVec.y = y * n;
 		nVec.z = z * n;
@@ -158,7 +155,7 @@ public:
 	}
 	Vector3 operator/(float n)
 	{
-		vec3 nVec;
+		Vector3 nVec;
 		nVec.x = x / n;
 		nVec.y = y / n;
 		nVec.z = z / n;
@@ -179,3 +176,7 @@ public:
 		return *this;
 	}
 };
+
+
+typedef Vector2 vec2;
+typedef Vector3 vec3;

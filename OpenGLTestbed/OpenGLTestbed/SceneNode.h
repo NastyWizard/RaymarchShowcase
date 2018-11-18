@@ -1,7 +1,7 @@
 #pragma once
 #include "NodeTags.h"
+#include "Transform.h"
 #include <vector>
-
 
 class SceneNode 
 {
@@ -16,6 +16,7 @@ private:
 	static int ID;
 
 public:
+	Transform transform;
 
 	//functions
 private:
@@ -27,6 +28,10 @@ public:
 	SceneNode* FindChild(std::string Name);
 	SceneNode* FindChild(Tags tag);
 
+	std::string GetName() { return name; }
+	std::string SetName(std::string Name) { name = Name; }
+
+	virtual void Init();
 	virtual void Update();
 	virtual void Render();
 

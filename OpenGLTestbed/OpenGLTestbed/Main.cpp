@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "Helpers.h"
+#include "TestScene.h"
 #include <iostream>
 #include <memory>
 
@@ -31,7 +32,7 @@ int main()
 
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 
-	Init();
+	InitScenes();
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -48,6 +49,7 @@ int main()
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
+	delete SceneManager::GetInstance();
 	glfwTerminate();
 	return 0;
 }
@@ -65,21 +67,23 @@ void ProcessInput(GLFWwindow *window)
 	}
 }
 
-void Init() 
+void InitScenes()
 {
-	//std::unique_ptr<Shader> testShader(new Shader("Shaders/default.vert", "Shaders/default.frag"));
-	
+	TestScene* scene1 = new TestScene();
+	SceneManager::AddScene(scene1);
 }
 
 void Update() 
 {
-
+	if(SceneManager::GetCurrentScene())
+		SceneManager::GetCurrentScene()->Update();
 }
 
 void RenderScreen() 
 {
 	ClearScreen();
-
+	if (SceneManager::GetCurrentScene())
+		SceneManager::GetCurrentScene()->Render();
 }
 
 void ClearScreen()

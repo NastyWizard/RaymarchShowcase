@@ -9,6 +9,7 @@ public:
 	Scene(std::string Name);
 	~Scene();
 
+	void Init();
 	void Update();
 	void Render();
 };

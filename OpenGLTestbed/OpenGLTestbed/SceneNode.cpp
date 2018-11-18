@@ -7,6 +7,11 @@ SceneNode::SceneNode(std::string Name)
 
 SceneNode::~SceneNode()
 {
+	for (int i = 0; i < children.size(); i++)
+	{
+		if(children[i] != nullptr)
+			delete children[i];
+	}
 }
 
 void SceneNode::AddChild(SceneNode* c)
@@ -34,6 +39,14 @@ SceneNode * SceneNode::FindChild(Tags tag)
 			return children[i];
 	}
 	return nullptr;
+}
+
+void SceneNode::Init()
+{
+	for (unsigned int i = 0; i < children.size(); i++)
+	{
+		children[i]->Init();
+	}
 }
 
 void SceneNode::Update()

@@ -1,6 +1,6 @@
 #include "MeshPrimitives.h"
 
-void MeshPrimitives::Create2DRect(float width, float height, float *&vertArray, unsigned int *&indexArray)
+void MeshPrimitives::Create2DRect(float width, float height, std::vector<float> &vertArray, std::vector<unsigned int> &indexArray)
 {
 	//  x        y       z
 	float vertices[] =
@@ -17,6 +17,13 @@ void MeshPrimitives::Create2DRect(float width, float height, float *&vertArray, 
 		1,2,3
 	};
 
-	vertArray = vertices;
-	indexArray = indices;
+	vertArray.clear();
+	indexArray.clear();
+
+	for (int i = 0; i < 12; i++)
+		vertArray.push_back(vertices[i]);
+
+	for (int i = 0; i < 6; i++)
+		indexArray.push_back(indices[i]);
+
 }

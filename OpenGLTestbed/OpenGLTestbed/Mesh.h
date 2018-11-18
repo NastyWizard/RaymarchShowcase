@@ -2,6 +2,7 @@
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
 #include <iostream>
+#include <vector>
 
 class Mesh 
 {
@@ -15,8 +16,8 @@ private:
 	unsigned int VBO;
 	unsigned int VAO;
 	unsigned int IBO;
-	float* vertices;
-	unsigned int* indices;
+	std::vector<float> vertices;
+	std::vector<unsigned int> indices;
 
 	// functions
 public:

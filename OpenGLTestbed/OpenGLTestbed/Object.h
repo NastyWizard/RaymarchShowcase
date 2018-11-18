@@ -10,11 +10,21 @@ private:
 	Material* material;
 	Mesh* mesh;
 public:
-
 	// functions
 private:
 public:
 
+	Object(std::string name);
+	Object(std::string name, Material* mat, Mesh* mesh);
+	~Object();
+
+	void SetMaterial(Material* mat);
+	Material* GetMaterial();
+
+	void SetMesh(Mesh* mesh);
+	Mesh* GetMesh();
+
+	void Init();
 	void Update();
 	void Render();
 };

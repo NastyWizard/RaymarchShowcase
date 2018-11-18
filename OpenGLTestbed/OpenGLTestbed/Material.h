@@ -16,7 +16,8 @@ public:
 	~Material();
 
 	void SetShader(Shader* shdr);
-	void UseShader() { shader->UseShader(); }
+	void UseShader();
+	void UpdateUniforms();
 private:
 
 };
