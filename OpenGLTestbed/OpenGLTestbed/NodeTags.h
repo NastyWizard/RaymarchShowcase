@@ -1,3 +1,3 @@
 #pragma once
 
-static enum Tags{ NONE = -1 };
+enum Tags{ NONE = -1 };

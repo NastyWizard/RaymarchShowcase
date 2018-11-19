@@ -5,6 +5,6 @@ class MeshPrimitives
 {
 
 public:
-	static void Create2DRect(float width, float height, std::vector<float> &vertArray, std::vector<unsigned int> &indexArray);
+	static void Create2DRect(float width, float height, std::vector<float> &vertArray, std::vector<unsigned int> &indexArray, std::vector<float> &uvArray, std::vector<float> &normalArray);
 
 };

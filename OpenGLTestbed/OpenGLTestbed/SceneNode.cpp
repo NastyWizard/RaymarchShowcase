@@ -7,7 +7,7 @@ SceneNode::SceneNode(std::string Name)
 
 SceneNode::~SceneNode()
 {
-	for (int i = 0; i < children.size(); i++)
+	for (unsigned int i = 0; i < children.size(); i++)
 	{
 		if(children[i] != nullptr)
 			delete children[i];
@@ -22,7 +22,7 @@ void SceneNode::AddChild(SceneNode* c)
 // finds first child by name
 SceneNode * SceneNode::FindChild(std::string Name)
 {
-	for (int i = 0; i < children.size(); i++)
+	for (unsigned int i = 0; i < children.size(); i++)
 	{
 		if (children[i]->name == Name)
 			return children[i];
@@ -77,5 +77,5 @@ void SceneNode::RemoveTag(Tags tag)
 
 bool SceneNode::HasTag(Tags tag)
 {
-	return tags & tag == tag;
+	return (tags & tag) == tag;
 }

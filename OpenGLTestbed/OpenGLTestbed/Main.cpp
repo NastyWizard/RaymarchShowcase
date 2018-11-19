@@ -49,8 +49,10 @@ int main()
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
+
 	delete SceneManager::GetInstance();
 	glfwTerminate();
+	
 	return 0;
 }
 

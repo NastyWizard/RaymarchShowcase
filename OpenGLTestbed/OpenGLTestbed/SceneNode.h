@@ -22,7 +22,7 @@ public:
 private:
 public:
 	SceneNode(std::string Name);
-	~SceneNode();
+	virtual ~SceneNode();
 
 	void AddChild(SceneNode* c);
 	SceneNode* FindChild(std::string Name);

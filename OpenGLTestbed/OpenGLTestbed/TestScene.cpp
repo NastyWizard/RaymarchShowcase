@@ -4,6 +4,9 @@
 TestScene::TestScene() : Scene("TestScene")
 {
 	Material* mat = new Material(new Shader("Shaders/default.vert", "Shaders/default.frag"));
+	
+	testTex = new Texture("Textures/test.jpg");
+
 	Mesh* mesh = new Mesh();
 	mesh->SetMesh(Mesh::RECT);
 	testObj = new Object("test",mat,mesh);
@@ -12,7 +15,8 @@ TestScene::TestScene() : Scene("TestScene")
 
 TestScene::~TestScene()
 {
-	delete testObj;
+	Scene::~Scene();
+	delete testTex;
 }
 
 void TestScene::Update()
@@ -23,4 +27,5 @@ void TestScene::Update()
 void TestScene::Render()
 {
 	Scene::Render();
+	testObj->GetMaterial()->SetUniformSampler2D("texture", testTex);
 }

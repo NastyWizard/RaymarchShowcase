@@ -7,6 +7,7 @@ Scene::Scene(std::string Name) : SceneNode(Name)
 
 Scene::~Scene()
 {
+	SceneNode::~SceneNode();
 }
 
 void Scene::Init()

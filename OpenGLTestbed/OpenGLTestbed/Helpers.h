@@ -44,6 +44,13 @@ inline void LoadFile(std::string path, char* &output)
 	fclose(file);
 
 	output[fileSize] = 0;
+
+	// sometimes doesn't load, added recursive fix
+	if (output[0] == 'Í')
+	{
+		delete output;
+		LoadFile(path, output);
+	}
 }
 
 template<typename T>

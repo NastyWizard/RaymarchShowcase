@@ -11,7 +11,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	for (int i = 0; i < GetInstance()->sceneList.size(); i++)
+	for (unsigned int i = 0; i < GetInstance()->sceneList.size(); i++)
 	{
 		delete GetInstance()->sceneList[i];
 		GetInstance()->sceneList[i] = nullptr;
@@ -30,7 +30,7 @@ void SceneManager::SetScene(int sceneNum)
 
 void SceneManager::SetScene(std::string sceneName)
 {
-	for (int i = 0; i < GetInstance()->sceneList.size(); i++) 
+	for (unsigned int i = 0; i < GetInstance()->sceneList.size(); i++)
 	{
 		if (GetInstance()->sceneList[GetInstance()->currentScene]->GetName() == sceneName)
 		{

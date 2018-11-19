@@ -62,7 +62,7 @@ void Object::Render()
 	if (material != nullptr && mesh != nullptr)
 	{
 		material->UseShader();
-		material->UpdateUniforms();
+		material->UpdateGlobalUniforms();
 		mesh->Draw();
 	}
 }

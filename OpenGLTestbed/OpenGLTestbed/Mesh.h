@@ -16,8 +16,8 @@ private:
 	unsigned int VBO;
 	unsigned int VAO;
 	unsigned int IBO;
-	std::vector<float> vertices;
-	std::vector<unsigned int> indices;
+	std::vector<float> vertices, uvs, normals;
+	std::vector<unsigned int> indices; 
 
 	// functions
 public:

@@ -12,22 +12,15 @@ void Shader::Initialize(std::string vert, std::string frag)
 	// load the shader code
 
 	char* vertShaderRaw[1];
-
-	LoadFile(vert, vertShaderRaw[0]);
+	do
+	{
+		LoadFile(vert, vertShaderRaw[0]);
+	} while (*vertShaderRaw[0] == 'Í');
 
 	glShaderSource(vertexShader, 1, vertShaderRaw, nullptr);
 	glCompileShader(vertexShader);
 
-	// check for errors
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
+	checkCompileErrors(vertexShader, "VERTEX");
 
 	// FRAGMENT
 
@@ -40,16 +33,7 @@ void Shader::Initialize(std::string vert, std::string frag)
 	glShaderSource(fragmentShader, 1, fragShaderRaw, nullptr);
 	glCompileShader(fragmentShader);
 
-
-	int successFrag;
-	char infoLogFrag[512];
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &successFrag);
-
-	if (!successFrag)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLogFrag);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLogFrag << std::endl;
-	}
+	checkCompileErrors(fragmentShader, "FRAGMENT");
 
 	// link the shader to the program
 	shaderProgram = glCreateProgram();
@@ -57,21 +41,40 @@ void Shader::Initialize(std::string vert, std::string frag)
 	glAttachShader(shaderProgram, fragmentShader);
 	glLinkProgram(shaderProgram);
 
-	int successLink;
-	char infoLogLink[512];
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &successLink);
-	if (!successLink)
-	{
-		glGetShaderInfoLog(shaderProgram, 512, nullptr, infoLogLink);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLogLink << std::endl;
-	}
+	checkCompileErrors(shaderProgram, "PROGRAM");
 
 	// clear shaders
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 }
 
+void Shader::checkCompileErrors(GLuint shader, std::string type)
+{
+	GLint success;
+	GLchar infoLog[1024];
+	if (type != "PROGRAM")
+	{
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		if (!success)
+		{
+			glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+			std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type.c_str() << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+		}
+	}
+	else
+	{
+		glGetProgramiv(shader, GL_LINK_STATUS, &success);
+		if (!success)
+		{
+			glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+			std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type.c_str() << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+		}
+	}
+}
+
+
 void Shader::UseShader()
 {
 	glUseProgram(shaderProgram);
 }
+
