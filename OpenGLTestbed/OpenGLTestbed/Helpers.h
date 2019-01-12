@@ -2,6 +2,31 @@
 
 #include <fstream>
 #include <iostream>
+#include <glad\glad.h>
+#include <GLFW\glfw3.h>
+#include <vector>
+
+#define PI 3.14159265359f
+
+inline float RadToDeg(float angle)
+{
+	return angle * (180.0f / PI);
+}
+
+inline float DegToRad(float angle)
+{
+	return angle * (PI / 180.0f);
+}
+
+inline void CheckForGLErrors()
+{
+	GLenum error = glGetError();
+
+	if (error != 0)
+	{
+		std::cout << "glGetError\n";
+	}
+}
 
 inline void LoadFile(char* path, char* &output)
 {
@@ -40,7 +65,7 @@ inline void LoadFile(std::string path, char* &output)
 
 	output = (char *)malloc(fileSize + 1);
 
-	fread(output, fileSize, fileSize, file);
+	fread(output, fileSize, 1, file);
 	fclose(file);
 
 	output[fileSize] = 0;
@@ -48,10 +73,43 @@ inline void LoadFile(std::string path, char* &output)
 	// sometimes doesn't load, added recursive fix
 	if (output[0] == 'Í')
 	{
-		delete output;
+		//delete output;
 		LoadFile(path, output);
 	}
 }
+
+inline void LoadFile(std::string path, unsigned char* &output, long &size)
+{
+	char* filecontents = 0;
+
+	FILE* filehandle;
+	errno_t error = fopen_s(&filehandle, path.c_str(), "rb");
+
+	if (filehandle)
+	{
+		fseek(filehandle, 0, SEEK_END);
+		long length = ftell(filehandle);
+		rewind(filehandle);
+
+		filecontents = new char[length + 1];
+		fread(filecontents, length, 1, filehandle);
+		filecontents[length] = 0;
+
+		if (size)
+			size = length;
+
+		fclose(filehandle);
+	}
+
+	output = (unsigned char*)filecontents;
+}
+
+inline void LoadFile(std::string path, unsigned char* &output)
+{
+	long i;
+	LoadFile(path, output, i);
+}
+
 
 template<typename T>
 inline void SwapValue(T &a, T &b) 

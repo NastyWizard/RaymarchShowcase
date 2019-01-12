@@ -2,6 +2,7 @@
 #include "SceneNode.h"
 #include "Material.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 class Object : public SceneNode
 {
@@ -10,6 +11,7 @@ private:
 	Material* material;
 	Mesh* mesh;
 public:
+
 	// functions
 private:
 public:

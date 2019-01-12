@@ -10,6 +10,7 @@ private:
 	Object* testObj;
 
 	Texture* testTex;
+	Texture* testTex2;
 
 public:
 

@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "VectorMath.h"
 #include "Texture.h"
+#include "MatrixMath.h"
 #include <map>
 
 
@@ -13,7 +14,8 @@ public:
 
 private:
 	Shader* shader;
-	
+	int texCount = 0;
+
 	//functions
 public:
 	Material(Shader* shdr) { SetShader(shdr); }
@@ -27,7 +29,9 @@ public:
 	// uniforms
 
 	void SetUniformSampler2D(std::string loc, Texture* tex);
+	void SetUniformSampler2D_s(unsigned int id, std::string loc, Texture* tex);
 
+	void SetUniformMatrix4x4(std::string loc, mat4x4 matrix);
 	void SetUniformInt(std::string loc, int n);
 
 	void SetUniformFloat(std::string loc, float n);

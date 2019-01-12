@@ -13,10 +13,10 @@ void MeshPrimitives::Create2DRect(float width, float height, std::vector<float> 
 
 	float uvs[] =
 	{
-		1.0f, 1.0f,
-		1.0f, 0.0f,
-		0.0f, 0.0f,
-		0.0f, 1.0f
+		1.0f, 1.0f-1.0f,
+		1.0f, 1.0f-0.0f,
+		0.0f, 1.0f-0.0f,
+		0.0f, 1.0f-1.0f
 	};
 
 	float normals[] = 

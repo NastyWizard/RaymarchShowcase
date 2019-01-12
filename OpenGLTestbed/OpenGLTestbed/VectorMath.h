@@ -10,6 +10,13 @@ public:
 	// functions
 private:
 public:
+
+	Vector2(float x, float y) { this->x = x; this->y = y; }
+
+	Vector2() { Set(Zero()); }
+
+	static Vector2 Zero() { return Vector2(0, 0); }
+
 	static float Dot(Vector2 a, Vector2 b)
 	{
 		float dp = (a.x * b.x) + (a.y * b.y);
@@ -90,6 +97,14 @@ public:
 	// functions
 private:
 public:
+
+	Vector3(float x, float y, float z) { this->x = x; this->y = y; this->z = z;  }
+
+	Vector3() { Set(Zero()); }
+
+	static Vector3 Zero() { return Vector3(0, 0, 0); }
+	static Vector3 One() { return Vector3(1, 1, 1); }
+
 	static float Dot(Vector3 a, Vector3 b)
 	{
 		float dp = (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
@@ -140,7 +155,7 @@ public:
 
 	// operator overloads
 
-	Vector3& operator=(const Vector3 &vec)
+	void operator=(const Vector3 &vec)
 	{
 		Set(vec);
 	}
@@ -189,6 +204,13 @@ public:
 	// functions
 private:
 public:
+
+	Vector4(float x, float y, float z, float w) { this->x = x; this->y = y; this->z = z; this->w = w; }
+
+	Vector4() { Set(Zero()); }
+
+	static Vector4 Zero() { return Vector4(0, 0, 0, 0); }
+
 	static float Dot(Vector4 a, Vector4 b)
 	{
 		float dp = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);

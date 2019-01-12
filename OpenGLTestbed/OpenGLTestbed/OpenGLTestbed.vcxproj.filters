@@ -52,6 +52,12 @@
     <Filter Include="Textures">
       <UniqueIdentifier>{76d7a431-6f07-48b4-8377-d24c9f69ba47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{306aee5c-2886-4bc4-ad6a-6370d6a21cbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\lodepng">
+      <UniqueIdentifier>{2afba267-cbad-44a7-99e3-45d977483c26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -93,6 +99,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Libraries\lodepng\lodepng.cpp">
+      <Filter>Libraries\lodepng</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -105,9 +114,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VectorMath.h">
-      <Filter>Header Files\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -140,11 +146,17 @@
     <ClInclude Include="SceneNode.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Libraries\lodepng\lodepng.h">
+      <Filter>Libraries\lodepng</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixMath.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="QuaternionMath.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -159,5 +171,13 @@
     <None Include="Shaders\defaultIncludes.glsl">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\checker.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\test.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <glad\glad.h>
+#include <GLFW\glfw3.h>
 
 class Texture 
 {
@@ -12,11 +15,12 @@ public:
 
 	//functions
 private:
+	void FlipImageVertically(std::vector<unsigned char> &buffer, unsigned int WIDTH, unsigned int HEIGHT);
 public:
-	Texture(std::string loc);
+	Texture(std::string loc, GLint minFilter = GL_LINEAR, GLint magFilter = GL_LINEAR);
 	Texture();
 	~Texture();
 
-	void LoadTexture(std::string loc);
+	void LoadTexture(const char* filename, GLint minFilter = GL_LINEAR, GLint magFilter = GL_LINEAR);
 	unsigned int GetTexture() { return glTex; }
 };

@@ -29,11 +29,45 @@ void Material::UseShader()
 void Material::UpdateGlobalUniforms()
 {
 	SetUniformFloat("time", (float)glfwGetTime());
+	texCount = 0;
 }
+
 
 void Material::SetUniformSampler2D(std::string loc, Texture* tex)
 {
-	SetUniformInt(loc, tex->GetTexture());
+	if (texCount >= 32) 
+	{
+		std::cout << "ERROR: Tex ID > 31\n";
+		return;
+	}
+
+	glActiveTexture(GL_TEXTURE0 + texCount);
+	glBindTexture(GL_TEXTURE_2D, tex->GetTexture());
+
+	SetUniformInt(loc, texCount++);
+	//SetUniformInt(loc, tex->GetTexture());
+}
+
+// safe version of SetUniformSampler2D, use this if you suck
+void Material::SetUniformSampler2D_s(unsigned int id, std::string loc, Texture* tex)
+{
+
+	if (id >= 32)
+	{
+		std::cout << "ERROR: Tex ID > 31\n";
+		return;
+	}
+
+	glActiveTexture(GL_TEXTURE0 + id);
+	glBindTexture(GL_TEXTURE_2D, tex->GetTexture());
+
+	SetUniformInt(loc, id);
+}
+
+void Material::SetUniformMatrix4x4(std::string loc, mat4x4 matrix)
+{
+	int glLoc = glGetUniformLocation(shader->GetShader(), loc.c_str());
+	glUniformMatrix4fv(glLoc, 1, GL_TRUE, matrix.matrix);
 }
 
 void Material::SetUniformInt(std::string loc, int n)

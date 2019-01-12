@@ -1,12 +1,12 @@
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 #include "Texture.h"
-#include <glad\glad.h>
-#include <GLFW\glfw3.h>
+//#include "stb_image.h"
+#include "Libraries\lodepng\lodepng.h"
+#include "Helpers.h"
 
-Texture::Texture(std::string loc)
+
+Texture::Texture(std::string loc, GLint minFilter, GLint magFilter)
 {
-	LoadTexture(loc);
+	LoadTexture(loc.c_str(), minFilter, magFilter);
 }
 
 Texture::Texture()
@@ -17,28 +17,65 @@ Texture::~Texture()
 {
 }
 
-void Texture::LoadTexture(std::string loc)
+void Texture::LoadTexture(const char* filename, GLint minFilter, GLint magFilter)
 {
-	glGenTextures(1, &glTex);
-	glBindTexture(GL_TEXTURE_2D, glTex);
+	unsigned int width, height;
+	long filesize;
+	unsigned char* filebuffer;
+	LoadFile(filename, filebuffer, filesize);
 
-	// wrap / filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	std::vector<unsigned char> pngbuffer;
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//std::vector<unsigned char> png;
 	//
+	//lodepng::load_file(png, filename);
 
-	// load the texture
-	unsigned char* data = stbi_load(loc.c_str(), &width, &height, &numChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-		std::cout << "ERROR: Texture Load Failed: " << loc.c_str() << std::endl;
+	unsigned int result = lodepng::decode(pngbuffer, width, height, filename);// lodepng_decode32(&pngbuffer, &width, &height, filebuffer, filesize);
 	
-	stbi_image_free(data);
+	if (result)
+	{
+		std::cout << result << std::endl;
+		return;
+	}
+	//assert(result == 0);
+
+	//std::cout << &pngbuffer[0] << std::endl;
+	//FlipImageVertically(pngbuffer, width, height);
+
+	GLuint texhandle = 0;
+	glGenTextures(1, &texhandle);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texhandle);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &pngbuffer[0]);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glTex = texhandle;
+	CheckForGLErrors();
+}
+
+void Texture::FlipImageVertically(std::vector<unsigned char> &buffer, unsigned int WIDTH, unsigned int HEIGHT)
+{
+	// temp allocation big enough for one line
+	unsigned int* temp;
+	temp = new unsigned int[WIDTH];
+	int linesize = WIDTH * 4;
+
+	for (unsigned int y = 0; y<HEIGHT / 2; y++)
+	{
+		int LineOffsetY = y * WIDTH;
+		int LineOffsetHminusY = (HEIGHT - 1 - y)*WIDTH;
+
+		memcpy(temp, &buffer[LineOffsetY], linesize);
+		memcpy(&buffer[LineOffsetY], &buffer[LineOffsetHminusY], linesize);
+		memcpy(&buffer[LineOffsetHminusY], temp, linesize);
+	}
+
+	delete temp;
 }
