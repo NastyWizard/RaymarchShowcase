@@ -34,7 +34,7 @@ public:
 		Set(v.x, v.y);
 	}
 
-	void Normalize() { Set(GetNormalized()); }
+	void Normalize() {Set(GetNormalized());}
 
 	Vector2 GetNormalized()
 	{
