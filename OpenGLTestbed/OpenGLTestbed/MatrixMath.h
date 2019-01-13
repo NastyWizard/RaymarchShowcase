@@ -31,7 +31,6 @@ public:
 		}
 	}
 
-
 	void Set(float* mat) 
 	{
 		for (int i = 0; i < 16; i++)
@@ -44,8 +43,6 @@ public:
 	{
 		Set(mat);
 	}
-
-
 
 	Vector4 operator*(Vector4 vec) 
 	{
@@ -115,6 +112,22 @@ public:
 			rMat[i] = matrix[i] - n;
 		}
 	}
+
+	Matrix4x4& operator*=(Matrix4x4 mat)
+	{
+		float *oMat = mat.matrix;
+
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = i * 4; j < 4; j++)
+			{
+				matrix[i + j - i * 4] = matrix[j] * oMat[i] + matrix[j + 1] * oMat[i + 4] + matrix[j + 2] * oMat[i + 8] + matrix[j + 3] * oMat[i + 12];
+			}
+		}
+
+		return *this;
+	}
+
 
 	float& operator[](int index) 
 	{

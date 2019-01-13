@@ -104,6 +104,9 @@ public:
 
 	static Vector3 Zero() { return Vector3(0, 0, 0); }
 	static Vector3 One() { return Vector3(1, 1, 1); }
+	static Vector3 UnitX() { return Vector3(1, 0, 0); }
+	static Vector3 UnitY() { return Vector3(0, 1, 0); }
+	static Vector3 UnitZ() { return Vector3(0, 0, 1); }
 
 	static float Dot(Vector3 a, Vector3 b)
 	{
@@ -277,6 +280,7 @@ public:
 		nVec.w = w * n;
 		return nVec;
 	}
+
 	Vector4 operator/(float n)
 	{
 		Vector4 nVec;
@@ -308,3 +312,36 @@ public:
 typedef Vector2 vec2;
 typedef Vector3 vec3;
 typedef Vector4 vec4;
+
+
+typedef Vector2 float2;
+typedef Vector3 float3;
+typedef Vector4 float4;
+
+
+inline Vector2 operator*(float n, const vec2& v)
+{
+	Vector2 nVec;
+	nVec.x = v.x * n;
+	nVec.y = v.y * n;
+	return nVec;
+}
+
+inline Vector3 operator*(float n, const Vector3& v)
+{
+	Vector3 nVec;
+	nVec.x = v.x * n;
+	nVec.y = v.y * n;
+	nVec.z = v.z * n;
+	return nVec;
+}
+
+inline Vector4 operator*(float n, const vec4& v)
+{
+	Vector4 nVec;
+	nVec.x = v.x * n;
+	nVec.y = v.y * n;
+	nVec.z = v.z * n;
+	nVec.w = v.w * n;
+	return nVec;
+}

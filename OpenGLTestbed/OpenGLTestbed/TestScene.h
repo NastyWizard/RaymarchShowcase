@@ -11,6 +11,7 @@ private:
 
 	Texture* testTex;
 	Texture* testTex2;
+	float angle;
 
 public:
 

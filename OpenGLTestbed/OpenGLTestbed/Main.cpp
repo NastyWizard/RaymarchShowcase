@@ -1,12 +1,16 @@
 #include "Main.h"
 #include "Helpers.h"
 #include "TestScene.h"
+#include "Time.h"
 #include <iostream>
 #include <memory>
 
 
+std::chrono::steady_clock::time_point Time::startTime = std::chrono::steady_clock::now();
 int main() 
 {
+	Time::ResetTime();
+
 	// initialize glfw
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

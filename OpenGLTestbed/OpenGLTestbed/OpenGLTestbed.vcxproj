@@ -137,6 +137,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helpers.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="VectorMath.h" />
   </ItemGroup>
