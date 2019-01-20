@@ -78,7 +78,7 @@ void Mesh::SetMesh(Primitive type)
 	case Mesh::NONE:
 		break;
 	case Mesh::RECT:
-		MeshPrimitives::Create2DRect(1, 1, vertices, indices, uvs, normals);
+		MeshPrimitives::Create2DRect(2, 2, vertices, indices, uvs, normals);
 		break;
 	case Mesh::CIRCLE:
 		break;

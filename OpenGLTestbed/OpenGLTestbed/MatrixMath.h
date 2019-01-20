@@ -115,15 +115,33 @@ public:
 
 	Matrix4x4& operator*=(Matrix4x4 mat)
 	{
-		float *oMat = mat.matrix;
-
-		for (int i = 0; i < 4; i++)
+		float rMat[16] = {0};
+		for (int i = 0; i < 4; i++) 
 		{
-			for (int j = i * 4; j < 4; j++)
-			{
-				matrix[i + j - i * 4] = matrix[j] * oMat[i] + matrix[j + 1] * oMat[i + 4] + matrix[j + 2] * oMat[i + 8] + matrix[j + 3] * oMat[i + 12];
-			}
+			int r = i * 4;
+			int c = 0;
+		
+			rMat[r]   = matrix[r] * mat.matrix[c] + matrix[r + 1] * mat.matrix[c + 4] + matrix[r + 2] * mat.matrix[c + 8] + matrix[r + 3] * mat.matrix[c + 12];
+			c++;
+			rMat[r+1] = matrix[r] * mat.matrix[c] + matrix[r + 1] * mat.matrix[c + 4] + matrix[r + 2] * mat.matrix[c + 8] + matrix[r + 3] * mat.matrix[c + 12];
+			c++;
+			rMat[r+2] = matrix[r] * mat.matrix[c] + matrix[r + 1] * mat.matrix[c + 4] + matrix[r + 2] * mat.matrix[c + 8] + matrix[r + 3] * mat.matrix[c + 12];
+			c++;
+			rMat[r+3] = matrix[r] * mat.matrix[c] + matrix[r + 1] * mat.matrix[c + 4] + matrix[r + 2] * mat.matrix[c + 8] + matrix[r + 3] * mat.matrix[c + 12];
 		}
+
+		for(int i = 0; i < 16; i++)
+			matrix[i] = rMat[i];
+
+		//for (int i = 0; i < 4; i++)
+		//{
+		//	for (int j = 0; j < 4; j++)
+		//	{
+		//		int index = i + j - i * 4;
+		//
+		//		matrix[index] = matrix[j] * mat.matrix[i] + matrix[j + 1] * mat.matrix[i + 4] + matrix[j + 2] * mat.matrix[i + 8] + matrix[j + 3] * mat.matrix[i + 12];
+		//	}
+		//}
 
 		return *this;
 	}

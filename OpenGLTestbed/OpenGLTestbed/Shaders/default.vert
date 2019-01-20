@@ -11,7 +11,7 @@ uniform mat4x4 ObjectMatrix;
 
 void main()
 {
-	vPos = aNormal;
+	vPos = aPos;
 	vTexCoord = aTexCoord;
 	vec4 pos = ObjectMatrix * vec4(aPos,1.0f);
 	gl_Position = pos;

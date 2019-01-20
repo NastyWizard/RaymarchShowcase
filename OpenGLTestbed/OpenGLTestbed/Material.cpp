@@ -67,7 +67,7 @@ void Material::SetUniformSampler2D_s(unsigned int id, std::string loc, Texture* 
 void Material::SetUniformMatrix4x4(std::string loc, mat4x4 matrix)
 {
 	int glLoc = glGetUniformLocation(shader->GetShader(), loc.c_str());
-	glUniformMatrix4fv(glLoc, 1, GL_TRUE, matrix.matrix);
+	glUniformMatrix4fv(glLoc, 1, GL_FALSE, matrix.matrix); // GL_FALSE = COLUMN MAJOR
 }
 
 void Material::SetUniformInt(std::string loc, int n)

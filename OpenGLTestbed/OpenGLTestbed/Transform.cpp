@@ -19,6 +19,7 @@ void Transform::Rotate()
 	rotation.GetAngleAxis(a, d);
 
 	mat4x4 nMat;
+	nMat.SetIdentity();
 	// 11 12 13
 	nMat[0] = cosf(a) + d.x*d.x*(1.f - cosf(a));
 	nMat[1] = d.x*d.y*(1.f - cosf(a)) - d.z*sinf(a);
@@ -35,34 +36,6 @@ void Transform::Rotate()
 	nMat[2 + 8] = cosf(a) + d.z*d.z*(1.f - cos(a));
 
 	matrix *= nMat;
-
-	//x = euler.x;
-	//y = euler.y;
-	//z = euler.z;
-	//
-	//
-	//
-	//// x axis rotation
-	//nMat.SetIdentity();
-	//	nMat[5]  = cosf(euler.x);
-	//	nMat[6]  = -sinf(euler.x);
-	//	nMat[9]  = sinf(euler.x);
-	//	nMat[10] = cosf(euler.x);
-	//matrix *= nMat;
-	//// y axis rotation
-	//nMat.SetIdentity();
-	//	nMat[0]	 = cosf(euler.y);
-	//	nMat[2]	 = sinf(euler.y);
-	//	nMat[8] = -sinf(euler.y);
-	//	nMat[10] = cosf(euler.y);
-	//matrix *= nMat;
-	//// z axis rotation
-	//nMat.SetIdentity();
-	//	nMat[0]	= cosf(euler.z);
-	//	nMat[1] = -sinf(euler.z);
-	//	nMat[4]	= sinf(euler.z);
-	//	nMat[5]	= cosf(euler.z);
-	//matrix *= nMat;
 }
 
 void Transform::Translate()
@@ -83,7 +56,6 @@ mat4x4 Transform::GetMatrix()
 	Scale();
 	Rotate();
 	Translate();
-
 	return matrix;
 
 	//mat[15] = 1.0f;
@@ -96,19 +68,4 @@ mat4x4 Transform::GetMatrix()
 	//mat[5] = scale.y;
 	//mat[10] = scale.z;
 	// ROTATION
-
-
-
-
-
-
-
-
-	;
-
-
-
-	;
-
-
 }

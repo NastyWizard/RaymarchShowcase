@@ -146,7 +146,17 @@ public:
 	{
 		Vector3 norm;
 		norm.Set(x, y, z);
-		norm /= GetLength();
+
+		float l = GetLength();
+
+		if (l != 0.0f)
+		{
+			norm /= l;
+		}
+		else 
+		{
+			norm.Set(Vector3::Zero());
+		}
 		return norm;
 	}
 
