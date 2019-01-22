@@ -8,6 +8,7 @@ private:
 public:
 	float w;
 	vec3 v;
+
 	Quaternion();
 	~Quaternion();
 	
@@ -34,6 +35,8 @@ public:
 	{
 		angle = RadToDeg(2.f * acosf(w));
 		axis = v.GetNormalized();
+		if (axis.GetLength() <= 0.001f)
+			angle = 0.f;
 	}
 
 	//static Quaternion Identity() 

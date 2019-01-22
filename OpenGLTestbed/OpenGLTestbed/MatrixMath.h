@@ -11,7 +11,7 @@ public:
 private:
 public:
 
-	Matrix4x4 Identity() 
+	Matrix4x4 Identity()
 	{
 		Matrix4x4 mat;
 		for (int i = 0; i < 16; i += 5) 

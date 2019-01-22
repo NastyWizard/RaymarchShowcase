@@ -17,6 +17,7 @@ void Transform::Rotate()
 	float a;
 
 	rotation.GetAngleAxis(a, d);
+	d.Normalize();
 
 	mat4x4 nMat;
 	nMat.SetIdentity();
@@ -43,9 +44,9 @@ void Transform::Translate()
 	mat4x4 nMat;
 	nMat.SetIdentity();
 
-	nMat[3] = position.x;
-	nMat[7] = position.y;
-	nMat[11] = position.z;
+	nMat[12] = position.x;
+	nMat[13] = position.y;
+	nMat[14] = position.z;
 	matrix *= nMat;
 }
 
