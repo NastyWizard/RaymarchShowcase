@@ -34,6 +34,7 @@ public:
 	{
 		if (v.GetLength() <= FLT_EPSILON || abs(w) <= FLT_EPSILON)
 		{
+			// identity
 			angle = 0;
 			axis.Set(0, 0, 1);
 			return;
@@ -43,16 +44,15 @@ public:
 		axis = v.GetNormalized();
 	}
 
-	//static Quaternion Identity() 
-	//{
-	//	Quaternion q;
-	//	q.x = q.y = q.z = 0.f;
-	//	return q;
-	//}
-
-	//void SetEulerAngles(vec3 v) { eulerAngles = v; }
-	//
-	//vec3 GetEulerAngles() { return eulerAngles; }
+	static Quaternion Identity() 
+	{
+		Quaternion q;
+		
+		q.v.Set(0.0f, 0.0f, 1.0f);
+		q.w = 0.0f;
+		
+		return q;
+	}
 
 	Quaternion& operator=(Quaternion q) 
 	{

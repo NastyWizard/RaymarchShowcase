@@ -10,7 +10,7 @@ private:
 	mat4x4 matrix;
 public:
 	vec3 position = vec3::Zero();
-	quat rotation ;
+	quat rotation = quat::Identity();
 	vec3 scale = vec3::One();
 
 	// functions

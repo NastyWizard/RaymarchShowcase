@@ -177,6 +177,9 @@
     <None Include="Shaders\defaultIncludes.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\RayTest.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\checker.png">
