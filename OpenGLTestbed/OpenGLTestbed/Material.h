@@ -11,7 +11,7 @@ class Material
 {
 	// variables
 public:
-
+	std::string name;
 private:
 	Shader* shader;
 	int texCount = 0;

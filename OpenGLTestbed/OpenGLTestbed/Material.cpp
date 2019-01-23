@@ -37,7 +37,7 @@ void Material::SetUniformSampler2D(std::string loc, Texture* tex)
 {
 	if (texCount >= 32) 
 	{
-		std::cout << "ERROR: Tex ID > 31\n";
+		std::cout << "ERROR: Tex ID > 31 on Material '" << name.c_str() << "'/n";
 		return;
 	}
 
@@ -48,13 +48,13 @@ void Material::SetUniformSampler2D(std::string loc, Texture* tex)
 	//SetUniformInt(loc, tex->GetTexture());
 }
 
-// safe version of SetUniformSampler2D, use this if you suck
+// specific ID version of SetUniformSampler2D
 void Material::SetUniformSampler2D_s(unsigned int id, std::string loc, Texture* tex)
 {
 
 	if (id >= 32)
 	{
-		std::cout << "ERROR: Tex ID > 31\n";
+		std::cout << "ERROR: Tex ID > 31 on Material '" << name.c_str() << "'/n";
 		return;
 	}
 
@@ -67,7 +67,7 @@ void Material::SetUniformSampler2D_s(unsigned int id, std::string loc, Texture* 
 void Material::SetUniformMatrix4x4(std::string loc, mat4x4 matrix)
 {
 	int glLoc = glGetUniformLocation(shader->GetShader(), loc.c_str());
-	glUniformMatrix4fv(glLoc, 1, GL_FALSE, matrix.matrix); // GL_FALSE = COLUMN MAJOR
+	glUniformMatrix4fv(glLoc, 1, GL_FALSE, matrix.matrix); // GL_FALSE = ROW MAJOR
 }
 
 void Material::SetUniformInt(std::string loc, int n)

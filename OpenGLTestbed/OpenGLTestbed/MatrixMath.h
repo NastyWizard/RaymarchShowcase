@@ -11,6 +11,15 @@ public:
 private:
 public:
 
+	// this is purely for testing how opengl sees matrices
+	void SetIndex() 
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			matrix[i] = (float)i;
+		}
+	}
+
 	Matrix4x4 Identity()
 	{
 		Matrix4x4 mat;

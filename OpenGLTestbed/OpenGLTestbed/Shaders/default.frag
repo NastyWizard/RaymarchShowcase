@@ -188,7 +188,7 @@ void main()
 	
 	// inverted y texCoord
 	vec2 tCoord = texCoord;
-	tCoord.x = 1. - tCoord.x;
+	tCoord.y = 1. - tCoord.y;
 
 	// pixel position for printing
 	vec2 fragCoord = tCoord * vec2(800.,600.);

@@ -14,7 +14,7 @@ TestScene::TestScene() : Scene("TestScene")
 	testObj = new Object("test",mat,mesh);
 	testObj->transform.position = vec3(0.f, 0.f, 0.f);
 	//testObj->transform.rotation.SetEulerAngles(vec3(0.f,50.f,0.f));
-	testObj->transform.rotation.AngleAxis(90.f, vec3::UnitZ());
+	testObj->transform.rotation.SetAngleAxis(DegToRad(90.f), vec3::UnitX());
 	AddChild(testObj);
 }
 
