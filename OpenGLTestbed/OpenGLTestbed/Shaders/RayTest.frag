@@ -2,6 +2,7 @@
 
 #define MAXSTEPS 512
 #define MAXDIST 200.
+#define PI 3.14159265359
 
 out vec4 FragColor;
 
@@ -32,9 +33,17 @@ vec3 opRep(vec3 p, vec3 r)
 	return mod(abs(p),r) - .5 * r;
 }
 
+vec3 opRepXZ(vec3 p, vec3 r)
+{
+	vec3 res = mod(abs(p),r) - .5 * r;
+	res.y = p.y;
+	return res;
+}
+
+
 float map(vec3 p)
 {
-	return min(sdSphere(opRep(vec3(0.0,-5.0,0.0)-p, vec3(10.,2.,10.)),1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));;
+	return min(sdSphere(opRepXZ(vec3(0.0,0.0,0.0)-p, vec3(10.,2.,10.)),1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));;
 	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
 }
 
@@ -83,6 +92,15 @@ float calcAO(vec3 p, vec3 n)
     return clamp(1. - 1.5 * occ, 0.1, 1.);
 }
 
+vec3 rotateY(vec3 p, float angle)
+{
+	mat3x3 rMat;
+	rMat[0] = vec3(cos(angle), 0., -sin(angle));
+	rMat[1] = vec3(0., 1., 0.);
+	rMat[2] = vec3(sin(angle), 0., cos(angle));
+	return rMat * p;
+}
+
 void main()
 {
 	
@@ -95,6 +113,7 @@ void main()
     vec2 sp =  (2.0*fragCoord.xy-resolution.xy) / resolution.y;
     vec3 ro = vec3(sin(time*.5)*2.,3.,4.);
     vec3 rd = normalize(vec3(sp,-2.));
+	rd = rotateY(rd, (sin(time * .5) + sin(time * .25)) * (PI * .5));
     //
 	
     vec3 lightDir = normalize(vec3(sin(time),sin(time*2.)*.5 + .75,cos(time)));
@@ -102,7 +121,18 @@ void main()
     vec3 col = vec3(0.3,0.5,0.8);
    	
     // sun
-    col += vec3(pow(max(dot(rd,lightDir),0.),80.));
+    vec3 sun = vec3(pow(max(dot(rd,lightDir),0.),60.));
+	
+	// fog stuff
+	
+	float minFogDist = 40.f;
+	float maxFogDist = 60.f;
+	float fogPow = 1.f;
+	float fogScale = 1.f;
+	vec3 fogCol = vec3(0.3, 0.6, 0.9);
+	float fog = 0.;
+
+	//
     
     float t = 0.;
     
@@ -111,7 +141,12 @@ void main()
     	vec3 p = ro + rd * t;
         float d = map(p);
         
-        if(t > MAXDIST) break;
+		
+		
+		fog = smoothstep(minFogDist, maxFogDist, distance(p, ro));
+		fog = pow(fog, fogPow) * fogScale;
+
+        if(t > maxFogDist) break;
         
         // draw
         if(d < 0.001)
@@ -121,7 +156,7 @@ void main()
             float iNDotL = dot(n,-lightDir);
             NDotL = max(NDotL,0.);
            	iNDotL = max(iNDotL,0.);
-            float shadow = softshadow(p,lightDir,.1,64.,32.)+.4;
+            float shadow = softshadow(p,lightDir,.1,16.,16.)+.4;
             
             // fresnel
             float NDotV = dot(n, rd); 
@@ -141,15 +176,26 @@ void main()
 			if(p.y < -.99)
 				col *= vec3(1.0,.5,.5);
 			else // sphere mat
-				col *= vec3(.5,.5,1.);
+				col *= vec3(.25,1.0,.5);
+
+			// -------- debug renders --------
+
+			// normal render
             //col = n;
+			
+			col = vec3(,0,0);
+			// depth render in relation to fog edge
+			//col = vec3(distance(p,ro)) / maxFogDist;
+			
+			// -------- debug renders --------
+
             break;
         }
         
         t += d;
     }
     // Output to screen
-    FragColor = vec4(col,1.0);
+    FragColor = vec4(mix(col, fogCol, fog) + sun, 1.0);
 
 
 	//FragColor = mix(texel,texel2,0.5);//vec4(vTexCoord,0.0f, 1.0f);
