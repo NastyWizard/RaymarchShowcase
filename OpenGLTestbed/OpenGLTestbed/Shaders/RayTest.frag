@@ -73,7 +73,7 @@ float softshadow( in vec3 ro, in vec3 rd, float mint, float maxt, float k )
         ph = h;
         t += h;
     }
-    return res;
+    return clamp(res,0.,1.);
 }
 //
 
@@ -156,13 +156,13 @@ void main()
             float iNDotL = dot(n,-lightDir);
             NDotL = max(NDotL,0.);
            	iNDotL = max(iNDotL,0.);
-            float shadow = softshadow(p,lightDir,.1,16.,16.)+.4;
-            
+            float shadow = softshadow(p,lightDir,.1,16.,16.)+.1;
+			shadow = pow(shadow,.4);
             // fresnel
             float NDotV = dot(n, rd); 
             float fscale= 2.;
-            float fpow  =2.;
-            float fbump = -.7;
+            float fpow  =4.;
+            float fbump = -.91;
             float f = 1.-pow(NDotV,fpow) * fscale;
             f = max(f+fbump,0.);
             
@@ -170,20 +170,19 @@ void main()
             
             
         	col = vec3(NDotL+.5) * shadow * occ;
-            col += f *(shadow+.5);
+            col *= f+1.0 ;
 
 			// plane material
 			if(p.y < -.99)
 				col *= vec3(1.0,.5,.5);
 			else // sphere mat
-				col *= vec3(.25,1.0,.5);
+				col *= vec3(.4,.6,.8);
 
 			// -------- debug renders --------
 
 			// normal render
             //col = n;
 			
-			col = vec3(,0,0);
 			// depth render in relation to fog edge
 			//col = vec3(distance(p,ro)) / maxFogDist;
 			

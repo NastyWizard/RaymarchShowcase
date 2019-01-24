@@ -9,7 +9,6 @@
 //
 int main() 
 {
-	Time::ResetTime();
 
 	// initialize glfw
 	glfwInit();
