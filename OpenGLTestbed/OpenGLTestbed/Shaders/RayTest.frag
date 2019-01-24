@@ -9,10 +9,12 @@ varying vec3 vPos;
 varying vec2 vTexCoord;
 
 uniform float time;
+uniform vec2 resolution;
 uniform sampler2D MainTex;
 uniform sampler2D MainTex2;
 uniform mat4x4 ObjectMatrix;
 
+// TODO: Create an includes file for primitives and operations
 
 float sdSphere(vec3 p, float r)
 {
@@ -32,8 +34,8 @@ vec3 opRep(vec3 p, vec3 r)
 
 float map(vec3 p)
 {
-	//return sdSphere(opRep(vec3(0.0,2.0,0.0)-p, vec3(0.,0.,1.)),1.0);
-	return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
+	return min(sdSphere(opRep(vec3(0.0,-5.0,0.0)-p, vec3(10.,2.,10.)),1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));;
+	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
 }
 
 vec3 calcNormal(in vec3 p)
@@ -83,7 +85,6 @@ float calcAO(vec3 p, vec3 n)
 
 void main()
 {
-	vec2 resolution = vec2(800.,600.);
 	
 	vec2 texCoord = vTexCoord;
 	texCoord.y = 1.-texCoord.y;
@@ -120,7 +121,7 @@ void main()
             float iNDotL = dot(n,-lightDir);
             NDotL = max(NDotL,0.);
            	iNDotL = max(iNDotL,0.);
-            float shadow = softshadow(p,lightDir,.1,16.,16.)+.4;
+            float shadow = softshadow(p,lightDir,.1,64.,32.)+.4;
             
             // fresnel
             float NDotV = dot(n, rd); 
@@ -133,8 +134,14 @@ void main()
             float occ = calcAO(p,n);
             
             
-        	col = vec3(NDotL+.1) * shadow * occ;
+        	col = vec3(NDotL+.5) * shadow * occ;
             col += f *(shadow+.5);
+
+			// plane material
+			if(p.y < -.99)
+				col *= vec3(1.0,.5,.5);
+			else // sphere mat
+				col *= vec3(.5,.5,1.);
             //col = n;
             break;
         }

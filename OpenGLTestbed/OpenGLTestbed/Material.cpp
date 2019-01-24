@@ -1,4 +1,5 @@
 #include "Material.h"
+#include "Window.h"
 
 Material::Material()
 {
@@ -29,6 +30,7 @@ void Material::UseShader()
 void Material::UpdateGlobalUniforms()
 {
 	SetUniformFloat("time", (float)glfwGetTime());
+	SetUniformFloat2("resolution", (float)Window::width, (float)Window::height);
 	texCount = 0;
 }
 

@@ -2,11 +2,11 @@
 #include "Helpers.h"
 #include "TestScene.h"
 #include "Time.h"
+#include "Window.h"
 #include <iostream>
 #include <memory>
 
-
-std::chrono::steady_clock::time_point Time::startTime = std::chrono::steady_clock::now();
+//
 int main() 
 {
 	Time::ResetTime();
@@ -18,13 +18,14 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// initialize window
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Testbed v1.0", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(Window::width, Window::height, "Testbed v1.0", nullptr, nullptr);
 	if (window == nullptr) 
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 		return -1;
 	}
+	
 	glfwMakeContextCurrent(window);
 
 	// initialize GLAD
@@ -62,6 +63,8 @@ int main()
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
+	Window::width = width;
+	Window::height = height;
 	glViewport(0, 0, width, height);
 }
 
