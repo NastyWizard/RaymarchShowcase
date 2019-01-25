@@ -8,7 +8,7 @@ class Shader
 {
 	// variables
 public:
-	
+
 private:
 	unsigned int vertexShader;
 	unsigned int fragmentShader;
@@ -24,6 +24,8 @@ public:
 	unsigned int GetShader() { return shaderProgram; }
 
 private:
+
+	void HandleIncludes(char* in, char*& out);
 
 	void checkCompileErrors(GLuint shader, std::string type);
 };

@@ -4,6 +4,8 @@
 #define MAXDIST 200.
 #define PI 3.14159265359
 
+#include "Shaders/defaultIncludes.glsl"
+
 out vec4 FragColor;
 
 varying vec3 vPos;
@@ -194,7 +196,7 @@ void main()
         t += d;
     }
     // Output to screen
-    FragColor = vec4(mix(col, fogCol, fog) + sun, 1.0);
+    FragColor = calcLighting();//vec4(mix(col, fogCol, fog) + sun, 1.0);
 
 
 	//FragColor = mix(texel,texel2,0.5);//vec4(vTexCoord,0.0f, 1.0f);

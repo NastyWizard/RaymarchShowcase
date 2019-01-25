@@ -12,6 +12,3 @@ void InitScenes();
 void Update();
 void RenderScreen();
 void ClearScreen();
-//class Main 
-//{
-//};
