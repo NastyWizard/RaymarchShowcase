@@ -1,8 +1,8 @@
 #pragma once
 #include "SceneNode.h"
-#include "Material.h"
-#include "Mesh.h"
 #include "Transform.h"
+#include "..\Graphics\Material.h"
+#include "..\Graphics\Mesh.h"
 
 class Object : public SceneNode
 {

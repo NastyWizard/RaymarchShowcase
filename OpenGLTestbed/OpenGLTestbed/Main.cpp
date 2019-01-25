@@ -1,8 +1,8 @@
 #include "Main.h"
-#include "Helpers.h"
-#include "TestScene.h"
-#include "Time.h"
-#include "Window.h"
+#include "Util\Helpers.h"
+#include "Scene\Scenes\TestScene.h"
+#include "Util\Time.h"
+#include "Util\Window.h"
 #include <iostream>
 #include <memory>
 

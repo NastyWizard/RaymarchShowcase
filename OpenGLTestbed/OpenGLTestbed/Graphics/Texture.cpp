@@ -1,7 +1,7 @@
 #include "Texture.h"
 //#include "stb_image.h"
-#include "Libraries\lodepng\lodepng.h"
-#include "Helpers.h"
+#include "..\Libraries\lodepng\lodepng.h"
+#include "..\Util\Helpers.h"
 
 
 Texture::Texture(std::string loc, GLint minFilter, GLint magFilter)

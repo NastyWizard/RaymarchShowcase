@@ -1,6 +1,6 @@
 #pragma once
-#include "Material.h"
-#include "SceneManager.h"
+#include "Graphics\Material.h"
+#include "Managers\SceneManager.h"
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
 

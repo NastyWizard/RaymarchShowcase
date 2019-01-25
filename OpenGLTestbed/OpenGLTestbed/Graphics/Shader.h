@@ -1,6 +1,6 @@
 #pragma once
-#include "Helpers.h"
-#include "VectorMath.h"
+#include "..\Util\Helpers.h"
+#include "..\Math\VectorMath.h"
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
 #include <iostream>

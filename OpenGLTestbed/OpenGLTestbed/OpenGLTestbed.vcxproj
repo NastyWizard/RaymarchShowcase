@@ -124,44 +124,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Graphics\Material.cpp" />
+    <ClCompile Include="Graphics\Mesh.cpp" />
+    <ClCompile Include="Graphics\MeshPrimitives.cpp" />
+    <ClCompile Include="Graphics\Shader.cpp" />
+    <ClCompile Include="Graphics\Texture.cpp" />
     <ClCompile Include="Libraries\lodepng\lodepng.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshPrimitives.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SceneNode.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="TestScene.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Time.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Managers\SceneManager.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Objects\Object.cpp" />
+    <ClCompile Include="Objects\SceneNode.cpp" />
+    <ClCompile Include="Objects\Transform.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\Scenes\TestScene.cpp" />
+    <ClCompile Include="Util\Time.cpp" />
+    <ClCompile Include="Util\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Helpers.h" />
+    <ClInclude Include="Graphics\Material.h" />
+    <ClInclude Include="Graphics\Mesh.h" />
+    <ClInclude Include="Graphics\MeshPrimitives.h" />
+    <ClInclude Include="Graphics\Shader.h" />
+    <ClInclude Include="Graphics\Texture.h" />
     <ClInclude Include="Libraries\lodepng\lodepng.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MatrixMath.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshPrimitives.h" />
-    <ClInclude Include="NodeTags.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="QuaternionMath.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SceneNode.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="TestScene.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="VectorMath.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Managers\SceneManager.h" />
+    <ClInclude Include="Math\MatrixMath.h" />
+    <ClInclude Include="Math\QuaternionMath.h" />
+    <ClInclude Include="Math\VectorMath.h" />
+    <ClInclude Include="Objects\NodeTags.h" />
+    <ClInclude Include="Objects\Object.h" />
+    <ClInclude Include="Objects\SceneNode.h" />
+    <ClInclude Include="Objects\Transform.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\Scenes\TestScene.h" />
+    <ClInclude Include="Util\Helpers.h" />
+    <ClInclude Include="Util\Time.h" />
+    <ClInclude Include="Util\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\default.frag" />

@@ -1,7 +1,7 @@
 #pragma once
-#include "VectorMath.h"
-#include "QuaternionMath.h"
-#include "MatrixMath.h"
+#include "..\Math\VectorMath.h"
+#include "..\Math\QuaternionMath.h"
+#include "..\Math\MatrixMath.h"
 
 class Transform 
 {

@@ -1,6 +1,6 @@
 #include "Material.h"
-#include "Time.h"
-#include "Window.h"
+#include "..\Util\Time.h"
+#include "..\Util\Window.h"
 
 Material::Material()
 {

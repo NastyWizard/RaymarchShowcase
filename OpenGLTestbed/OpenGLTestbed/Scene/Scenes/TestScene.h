@@ -1,7 +1,7 @@
 #pragma once
-#include "Scene.h"
-#include "Object.h"
-#include "Texture.h"
+#include "..\Scene.h"
+#include "..\..\Objects\Object.h"
+#include "..\..\Graphics\Texture.h"
 
 class TestScene : public Scene
 {

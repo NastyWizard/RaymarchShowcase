@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneNode.h"
+#include "..\Objects\SceneNode.h"
 
 class Scene : public SceneNode
 {

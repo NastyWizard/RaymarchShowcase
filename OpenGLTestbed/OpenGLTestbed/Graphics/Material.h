@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Shader.h"
-#include "VectorMath.h"
+#include "..\Math\VectorMath.h"
 #include "Texture.h"
-#include "MatrixMath.h"
+#include "..\Math\MatrixMath.h"
 #include <map>
 
 
