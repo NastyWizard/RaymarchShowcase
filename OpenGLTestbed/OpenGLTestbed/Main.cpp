@@ -3,6 +3,9 @@
 #include "Scene\Scenes\TestScene.h"
 #include "Util\Time.h"
 #include "Util\Window.h"
+#include "Libraries/imgui/imgui.h"
+#include "Libraries/imgui/imgui_impl_glfw.h"
+#include "Libraries/imgui/imgui_impl_opengl3.h"
 #include <iostream>
 #include <memory>
 
@@ -11,7 +14,9 @@ int main()
 {
 
 	// initialize glfw
-	glfwInit();
+	if (!glfwInit()) return 1;
+
+	const char* glsl_version = "#version 150";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -25,7 +30,8 @@ int main()
 		return -1;
 	}
 	
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(window); 
+	glfwSwapInterval(1); // vsync
 
 	// initialize GLAD
 	if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -36,25 +42,46 @@ int main()
 
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init(glsl_version);
+
 	InitScenes();
 
 	while (!glfwWindowShouldClose(window))
 	{
-		// process input
-		ProcessInput(window);
 
+		// process input
+		//ProcessInput(window);
+		glfwPollEvents();
+
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 		// update
 		Update();
-
 		// render
 		RenderScreen();
 
+		// Rendering ImGui
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		glfwMakeContextCurrent(window);
 		// swap buffers
-		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
 
 	delete SceneManager::GetInstance();
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(window);
 	glfwTerminate();
 	
 	return 0;

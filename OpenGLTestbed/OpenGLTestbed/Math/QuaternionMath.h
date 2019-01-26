@@ -18,8 +18,8 @@ public:
 		
 		float h = .5f * angle;
 		Quaternion q;
-		q.w = angle;//cos(h);
-		q.v = axis.GetNormalized();//sin(h) * axis.GetNormalized();
+		q.w = cos(h);
+		q.v = sin(h) * axis.GetNormalized();
 		return q;
 	}
 
@@ -40,8 +40,8 @@ public:
 			return;
 		}
 
-		angle = w;// 2.f * acosf(w);
-		axis = v.GetNormalized();
+		angle = 2.f * acosf(w);
+		axis = asinf(w) * v.GetNormalized();
 	}
 
 	static Quaternion Identity() 

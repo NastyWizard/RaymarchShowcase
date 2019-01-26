@@ -98,7 +98,10 @@ public:
 private:
 public:
 
-	Vector3(float x, float y, float z) { this->x = x; this->y = y; this->z = z;  }
+	Vector3(float x, float y, float z) { this->x = x; this->y = y; this->z = z; }
+
+	Vector3(float x) { this->x = x; this->y = x; this->z = x; }
+
 
 	Vector3() { Set(Zero()); }
 

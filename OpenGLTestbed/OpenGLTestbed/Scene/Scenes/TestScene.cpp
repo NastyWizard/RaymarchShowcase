@@ -5,7 +5,7 @@
 TestScene::TestScene() : Scene("TestScene")
 {
 	// initialize objects and materials
-	Material* mat = new Material(new Shader("Shaders/default.vert", "Shaders/default.frag"));
+	Material* mat = new Material(new Shader("Shaders/default.vert", "Shaders/RayTest.frag"));
 
 	testTex = new Texture("Textures/checker.png", GL_NEAREST_MIPMAP_NEAREST,GL_NEAREST);
 	testTex2 = new Texture("Textures/test.png");
@@ -14,8 +14,8 @@ TestScene::TestScene() : Scene("TestScene")
 	mesh->SetMesh(Mesh::RECT);
 	testObj = new Object("test",mat,mesh);
 	testObj->transform.position = vec3(0.f, 0.f, 0.f);
-	testObj->transform.scale = vec3(1.f, 1.f, 1.f);
-	//testObj->transform.rotation.SetAngleAxis(DegToRad(90.f), vec3::UnitX());
+	testObj->transform.scale = vec3(1.f);
+	testObj->transform.rotation.SetAngleAxis(DegToRad(0.f), vec3::UnitZ());
 	AddChild(testObj);
 }
 
