@@ -55,7 +55,7 @@ int main()
 	{
 
 		// process input
-		//ProcessInput(window);
+		ProcessInput(window);
 		glfwPollEvents();
 
 		ImGui_ImplOpenGL3_NewFrame();

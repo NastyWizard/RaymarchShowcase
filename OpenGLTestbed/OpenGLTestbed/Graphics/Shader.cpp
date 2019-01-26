@@ -10,31 +10,27 @@ void Shader::Initialize(std::string vert, std::string frag)
 
 	// VERTEX
 
-	// load the shader code
-
+	// shader
 	char* vertShaderRaw[1];
-	do
-	{
-		LoadFile(vert, vertShaderRaw[0]);
-	} while (*vertShaderRaw[0] == 'Í');
+	LoadFile(vert, vertShaderRaw[0]);
 
-	glShaderSource(vertexShader, 1, vertShaderRaw, nullptr);
+	// includes
+	char* vertShader[1];
+	HandleIncludes(vertShaderRaw[0], vertShader[0]);
+
+	glShaderSource(vertexShader, 1, vertShader, nullptr);
 	glCompileShader(vertexShader);
 
 	checkCompileErrors(vertexShader, "VERTEX");
 
 	// FRAGMENT
 
-	// load the shader code
-
+	// shader
 	char* fragShaderRaw[1];
-	//char* fragIncludesRaw;
-
 	LoadFile(frag, fragShaderRaw[0]);
 
+	// includes
 	char* fragShader[1];
-	//fragShader[0] = _strdup("");
-
 	HandleIncludes(fragShaderRaw[0], fragShader[0]);
 
 
@@ -56,6 +52,7 @@ void Shader::Initialize(std::string vert, std::string frag)
 	glDeleteShader(fragmentShader);
 }
 
+// takes in raw shader data, outputs shader data with included shader data.
 void Shader::HandleIncludes(char* in, char*& out)
 {
 	std::string in_s = std::string(in);
