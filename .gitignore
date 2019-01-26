@@ -382,3 +382,6 @@ ASALocalRun/
 # BeatPulse healthcheck temp database 
 healthchecksdb
 *.ilk
+
+# Allow glfw3 lib
+!glfw3.lib
