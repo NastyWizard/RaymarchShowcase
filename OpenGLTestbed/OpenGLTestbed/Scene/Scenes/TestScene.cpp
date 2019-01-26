@@ -5,7 +5,7 @@
 TestScene::TestScene() : Scene("TestScene")
 {
 	// initialize objects and materials
-	Material* mat = new Material(new Shader("Shaders/default.vert", "Shaders/RayTest.frag"));
+	Material* mat = new Material(new Shader("Shaders/default.vert", "Shaders/default.frag"));
 
 	testTex = new Texture("Textures/checker.png", GL_NEAREST_MIPMAP_NEAREST,GL_NEAREST);
 	testTex2 = new Texture("Textures/test.png");

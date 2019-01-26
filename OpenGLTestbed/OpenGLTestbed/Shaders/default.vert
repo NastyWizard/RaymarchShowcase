@@ -13,6 +13,6 @@ void main()
 {
 	vPos = aPos;
 	vTexCoord = aTexCoord;
-	vec4 pos = ObjectMatrix * vec4(aPos,1.0f);
+	vec4 pos = vec4(aPos,1.0f);//ObjectMatrix * vec4(aPos,1.0f);
 	gl_Position = pos;
 }

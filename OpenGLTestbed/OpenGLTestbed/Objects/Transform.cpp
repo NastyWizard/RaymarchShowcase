@@ -57,6 +57,7 @@ mat4x4 Transform::GetMatrix()
 	Scale();
 	Rotate();
 	Translate();
+	matrix.SetIndex(); // this is to draw the indices in the shader.
 	return matrix;
 
 	//mat[15] = 1.0f;

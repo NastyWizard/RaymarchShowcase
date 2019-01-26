@@ -196,7 +196,7 @@ void main()
         t += d;
     }
     // Output to screen
-    FragColor = calcLighting();//vec4(mix(col, fogCol, fog) + sun, 1.0);
+    FragColor = vec4(mix(col, fogCol, fog) + sun, 1.0);
 
 
 	//FragColor = mix(texel,texel2,0.5);//vec4(vTexCoord,0.0f, 1.0f);
