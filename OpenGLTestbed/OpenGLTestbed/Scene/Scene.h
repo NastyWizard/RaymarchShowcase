@@ -1,6 +1,7 @@
 #pragma once
 #include "..\Objects\SceneNode.h"
 
+
 class Scene : public SceneNode
 {
 private:

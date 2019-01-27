@@ -28,26 +28,26 @@ inline void CheckForGLErrors()
 	}
 }
 
-inline void LoadFile(char* path, char* &output)
-{
-	FILE *file;// = fopen("Shaders/default.vert", "rb");
-	fopen_s(&file, path, "rb");
-	if (file == nullptr)
-	{
-		std::cout << "Error: file can't be read" << std::endl;
-	}
-
-	fseek(file, 0, SEEK_END);
-	int fileSize = ftell(file);
-	rewind(file);
-
-	output = (char *)malloc(fileSize + 1);
-
-	fread(output, fileSize, fileSize, file);
-	fclose(file);
-
-	output[fileSize] = 0;
-}
+//inline void LoadFile(char* path, char* &output)
+//{
+//	FILE *file;// = fopen("Shaders/default.vert", "rb");
+//	fopen_s(&file, path, "rb");
+//	if (file == nullptr)
+//	{
+//		std::cout << "Error: file can't be read" << std::endl;
+//	}
+//
+//	fseek(file, 0, SEEK_END);
+//	int fileSize = ftell(file);
+//	rewind(file);
+//
+//	output = (char *)malloc(fileSize + 1);
+//
+//	fread(output, fileSize, fileSize, file);
+//	fclose(file);
+//
+//	output[fileSize] = 0;
+//}
 
 inline void LoadFile(std::string path, char* &output)
 {
@@ -70,11 +70,11 @@ inline void LoadFile(std::string path, char* &output)
 
 	output[fileSize] = 0;
 
-	// sometimes doesn't load, added recursive fix
+	// sometimes doesn't load, added recursive "fix". TODO: Do real fix
 	if (output[0] == 'Í')
 	{
 		//delete output;
-		LoadFile(path, output);
+		LoadFile(path, output);	
 	}
 }
 
@@ -104,11 +104,11 @@ inline void LoadFile(std::string path, unsigned char* &output, long &size)
 	output = (unsigned char*)filecontents;
 }
 
-inline void LoadFile(std::string path, unsigned char* &output)
-{
-	long i;
-	LoadFile(path, output, i);
-}
+//inline void LoadFile(std::string path, unsigned char* &output)
+//{
+//	long i;
+//	LoadFile(path, output, i);
+//}
 
 
 template<typename T>

@@ -4,7 +4,9 @@
 #define MAXDIST 200.
 #define PI 3.14159265359
 
-#include "Shaders/defaultIncludes.glsl"
+#include "Shaders/SDFIncludes.glsl"
+#include "Shaders/SDFIncludes.glsl"
+#include "Shaders/SDFIncludes.glsl"
 
 out vec4 FragColor;
 
@@ -16,31 +18,6 @@ uniform vec2 resolution;
 uniform sampler2D MainTex;
 uniform sampler2D MainTex2;
 uniform mat4x4 ObjectMatrix;
-
-// TODO: Create an includes file for primitives and operations
-
-float sdSphere(vec3 p, float r)
-{
-	return length(p) - r;
-}
-
-float sdPlane(vec3 p, vec3 n)
-{
-	n = normalize(n);
-	return dot(p, n.xyz)+1.;
-}
-
-vec3 opRep(vec3 p, vec3 r)
-{
-	return mod(abs(p),r) - .5 * r;
-}
-
-vec3 opRepXZ(vec3 p, vec3 r)
-{
-	vec3 res = mod(abs(p),r) - .5 * r;
-	res.y = p.y;
-	return res;
-}
 
 
 float map(vec3 p)

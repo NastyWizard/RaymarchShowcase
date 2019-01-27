@@ -1,6 +1,7 @@
 #pragma once
 #include "NodeTags.h"
 #include "Transform.h"
+#include "../Libraries/imgui/imgui.h"
 #include <vector>
 
 class SceneNode 

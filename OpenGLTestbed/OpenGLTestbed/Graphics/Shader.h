@@ -13,6 +13,9 @@ private:
 	unsigned int vertexShader;
 	unsigned int fragmentShader;
 	unsigned int shaderProgram;
+
+	std::string vert;
+	std::string frag;
 	// functions
 public:
 	Shader() {}
@@ -22,6 +25,10 @@ public:
 	void Initialize(std::string vert, std::string frag);
 	void UseShader();
 	unsigned int GetShader() { return shaderProgram; }
+
+
+	std::string GetVertex();
+	std::string GetFragment();
 
 private:
 

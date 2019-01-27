@@ -23,6 +23,7 @@ public:
 	~Material();
 
 	void SetShader(Shader* shdr);
+	Shader* GetShader();
 	void UseShader();
 	void UpdateGlobalUniforms();
 

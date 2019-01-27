@@ -124,6 +124,7 @@ void RenderScreen()
 void ClearScreen()
 {
 	// clear the screen
-	glClearColor(0.0f, .6f, 0.8f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	//glClearColor(0.0f, .6f, 0.8f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }

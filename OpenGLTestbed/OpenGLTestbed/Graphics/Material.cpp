@@ -18,7 +18,18 @@ Material::~Material()
 
 void Material::SetShader(Shader* shdr)
 {
+	if (shader != nullptr)
+	{
+		delete shader;
+		shader = nullptr;
+	}
 	shader = shdr;
+}
+
+
+Shader* Material::GetShader()
+{
+	return shader;
 }
 
 void Material::UseShader()

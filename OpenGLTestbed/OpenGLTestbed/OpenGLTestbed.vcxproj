@@ -201,6 +201,7 @@
   <ItemGroup>
     <None Include="Shaders\defaultIncludes.glsl" />
     <None Include="Shaders\RayTest.frag" />
+    <None Include="Shaders\SDFIncludes.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\checker.png" />

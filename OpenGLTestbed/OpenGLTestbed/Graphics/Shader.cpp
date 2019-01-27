@@ -4,6 +4,9 @@
 void Shader::Initialize(std::string vert, std::string frag)
 {
 
+	this->vert = vert;
+	this->frag = frag;
+
 	// create shaders
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -70,7 +73,7 @@ void Shader::HandleIncludes(char* in, char*& out)
 
 		char* fileName = (char*)malloc(fileNameSize-1);
 		//strcpy_s(fileName, fileNameSize+1, in + urlPos);
-		strncpy_s(fileName, fileNameSize-1, in + urlPos+1, fileNameSize-2);
+		strncpy_s(fileName, fileNameSize-1, in_s.c_str() + urlPos+1, fileNameSize-2);
 
 		// clear the line
 		in_s.erase(pos, eol - pos);
@@ -84,6 +87,7 @@ void Shader::HandleIncludes(char* in, char*& out)
 
 		// find next include
 		pos = in_s.find("#include", pos);
+		delete file;
 	}
 
 	// copy data into output string
@@ -120,5 +124,15 @@ void Shader::checkCompileErrors(GLuint shader, std::string type)
 void Shader::UseShader()
 {
 	glUseProgram(shaderProgram);
+}
+
+std::string Shader::GetVertex()
+{
+	return vert;
+}
+
+std::string Shader::GetFragment()
+{
+	return frag;
 }
 
