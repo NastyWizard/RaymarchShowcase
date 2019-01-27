@@ -55,6 +55,7 @@ public:
 	Vector2& operator=(const Vector2 &vec)
 	{
 		Set(vec);
+		return *this;
 	}
 
 	Vector2 operator*(float n)
@@ -282,6 +283,7 @@ public:
 	Vector4& operator=(const Vector4 &vec)
 	{
 		Set(vec);
+		return *this;
 	}
 
 	Vector4 operator*(float n)

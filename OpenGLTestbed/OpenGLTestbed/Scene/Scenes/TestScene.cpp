@@ -16,6 +16,10 @@ TestScene::TestScene() : Scene("TestScene")
 	testObj->transform.position = vec3(0.f, 0.f, 0.f);
 	testObj->transform.scale = vec3(1.f);
 	testObj->transform.rotation.SetAngleAxis(DegToRad(0.f), vec3::UnitZ());
+
+	testObj->GetMaterial()->AddUniformSampler2D("MainTex", testTex);
+	testObj->GetMaterial()->AddUniformSampler2D("MainTex2", testTex2);
+
 	AddChild(testObj);
 }
 
@@ -36,8 +40,6 @@ void TestScene::Update()
 void TestScene::Render()
 {
 	Scene::Render();
-	testObj->GetMaterial()->SetUniformSampler2D("MainTex", testTex);
-	testObj->GetMaterial()->SetUniformSampler2D("MainTex2", testTex2);
 }
 
 void TestScene::ShowObjectMenu(Object* o) 
@@ -89,7 +91,14 @@ void TestScene::ShowObjectMenu(Object* o)
 
 		if (ImGui::TreeNode("Uniforms"))
 		{
+			ImGui::Text("Global");
 
+			ImGui::Separator();
+
+			ImGui::Text("Unique");
+
+
+			ImGui::Separator();
 			ImGui::TreePop();
 		}
 
@@ -116,6 +125,7 @@ void TestScene::ShowObjectMenu(Object* o)
 			ImGui::SliderFloat("sX", &o->transform.scale.x, 0.f, 2.f);
 			ImGui::SliderFloat("sY", &o->transform.scale.y, 0.f, 2.f);
 			ImGui::SliderFloat("sZ", &o->transform.scale.z, 0.f, 2.f);
+			ImGui::Separator();
 			ImGui::TreePop();
 		}
 	}

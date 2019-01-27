@@ -51,6 +51,7 @@ public:
 	Matrix4x4 & operator=(const Matrix4x4 &mat) 
 	{
 		Set(mat);
+		return *this;
 	}
 
 	Vector4 operator*(Vector4 vec) 
