@@ -19,10 +19,13 @@ uniform sampler2D MainTex;
 uniform sampler2D MainTex2;
 uniform mat4x4 ObjectMatrix;
 
+uniform vec3 SpherePos;
+uniform vec4 SphereColor;
+uniform vec4 SpherezColor;
 
 float map(vec3 p)
 {
-	return min(sdSphere(opRepXZ(vec3(0.0,0.0,0.0)-p, vec3(10.,2.,10.)),1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));;
+	return min(sdSphere(opRepXZ(SpherePos-p, vec3(10.,2.,10.)),1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));;
 	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
 }
 
@@ -155,7 +158,7 @@ void main()
 			if(p.y < -.99)
 				col *= vec3(1.0,.5,.5);
 			else // sphere mat
-				col *= vec3(.4,.6,.8);
+				col *= SphereColor.xyz;
 
 			// -------- debug renders --------
 

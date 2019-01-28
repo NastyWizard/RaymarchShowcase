@@ -62,7 +62,7 @@ void Object::Render()
 	if (material != nullptr && mesh != nullptr)
 	{
 		material->UseShader();
-		material->ApplyUniformMatrix4x4("ObjectMatrix", transform.GetMatrix());
+		material->SetUniformMatrix4x4("ObjectMatrix", transform.GetMatrix());
 
 		material->UpdateGlobalUniforms();
 		material->UpdateUniqueUniforms();

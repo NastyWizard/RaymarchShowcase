@@ -34,7 +34,7 @@ public:
 		Set(v.x, v.y);
 	}
 
-	void Normalize() {Set(GetNormalized());}
+	void Normalize() { Set(GetNormalized()); }
 
 	Vector2 GetNormalized()
 	{
@@ -48,6 +48,12 @@ public:
 	float GetLength()
 	{
 		return sqrtf((x*x) + (y*y));
+	}
+
+	float* GetAsArray()
+	{
+		float a[2] = { x,y };
+		return a;
 	}
 
 	// operator overloads
@@ -164,6 +170,12 @@ public:
 		return norm;
 	}
 
+	float* GetAsArray()
+	{
+		float a[3] = { x,y,z };
+		return a;
+	}
+
 	// Magnitude
 	float GetLength()
 	{
@@ -276,6 +288,12 @@ public:
 	float GetLength()
 	{
 		return sqrtf((x*x) + (y*y) + (z*z) + (w*w));
+	}
+
+	float* GetAsArray()
+	{
+		float a[4] = { x,y,z,w };
+		return a;
 	}
 
 	// operator overloads

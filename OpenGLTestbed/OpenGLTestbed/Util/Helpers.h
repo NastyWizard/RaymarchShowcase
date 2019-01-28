@@ -5,6 +5,7 @@
 #include <glad\glad.h>
 #include <GLFW\glfw3.h>
 #include <vector>
+#include <map>
 
 #define PI 3.14159265359f
 
@@ -26,6 +27,12 @@ inline void CheckForGLErrors()
 	{
 		std::cout << "glGetError\n";
 	}
+}
+
+template <typename K, typename V>
+inline std::vector<std::pair<K,V>> MapToVec(const  std::map<K,V> &map) 
+{	
+	return std::vector<std::pair<K, V>>(map.begin(), map.end());
 }
 
 //inline void LoadFile(char* path, char* &output)

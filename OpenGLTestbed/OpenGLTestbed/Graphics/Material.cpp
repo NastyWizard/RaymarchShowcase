@@ -70,13 +70,15 @@ void Material::UpdateUniqueUniforms()
 
 	if (float4Unfs.size() > 0)
 		UpdateUniformFloat4();
-
 }
 
 void Material::AddUniformSampler2D(std::string loc, Texture * tex)
 {
 	if (texUnfs.find(loc) == texUnfs.end())
-		texUnfs.insert(std::make_pair(loc,tex));
+		texUnfs.insert(std::make_pair(loc, tex));
+
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::SAMPLER2D));
 }
 
 void Material::AddUniformMatrix4x4(std::string loc, mat4x4 matrix)
@@ -84,36 +86,56 @@ void Material::AddUniformMatrix4x4(std::string loc, mat4x4 matrix)
 	
 	if (mat4x4Unfs.find(loc) == mat4x4Unfs.end())
 		mat4x4Unfs.insert(std::make_pair(loc, matrix));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::MAT4X4));
 }
 
 void Material::AddUniformInt(std::string loc, int n)
 {
 	if (intUnfs.find(loc) == intUnfs.end())
 		intUnfs.insert(std::make_pair(loc, n));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::INT));
 }
 
 void Material::AddUniformFloat(std::string loc, float n)
 {
 	if (floatUnfs.find(loc) == floatUnfs.end())
 		floatUnfs.insert(std::make_pair(loc, n));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::FLOAT));
 }
 
 void Material::AddUniformFloat2(std::string loc, float x, float y)
 {
 	if (float2Unfs.find(loc) == float2Unfs.end())
 		float2Unfs.insert(std::make_pair(loc, float2(x,y)));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::FLOAT2));
 }
 
 void Material::AddUniformFloat3(std::string loc, float x, float y, float z)
 {
 	if (float3Unfs.find(loc) == float3Unfs.end())
 		float3Unfs.insert(std::make_pair(loc, float3(x,y,z)));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::FLOAT3));
 }
 
 void Material::AddUniformFloat4(std::string loc, float x, float y, float z, float w)
 {
 	if (float4Unfs.find(loc) == float4Unfs.end())
 		float4Unfs.insert(std::make_pair(loc, float4(x,y,z,w)));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::FLOAT4));
+}
+
+void Material::AddUniformColor(std::string loc, float r, float g, float b, float a)
+{
+	if (float4Unfs.find(loc) == float4Unfs.end())
+		float4Unfs.insert(std::make_pair(loc, float4(r, g, b, a)));
+	if (Uniforms.find(loc) == Uniforms.end())
+		Uniforms.insert(std::make_pair(loc, UniformType::COLOR));
 }
 
 void Material::SetUniformSampler2D(std::string loc, Texture * tex)
@@ -186,12 +208,22 @@ void Material::SetUniformFloat4(std::string loc, float x, float y, float z, floa
 	float4Unfs.at(loc) = float4(x, y, z, w);
 }
 
+void Material::SetUniformColor(std::string loc, float r, float g, float b, float a)
+{
+	if (float4Unfs.find(loc) == float4Unfs.end())
+	{
+		AddUniformColor(loc, r, g, b, a);
+		return;
+	}
+	float4Unfs.at(loc) = float4(r, g, b, a);
+}
+
 
 void Material::ApplyUniformSampler2D(std::string loc, Texture* tex)
 {
 	if (texCount >= 32) 
 	{
-		std::cout << "ERROR: Tex ID > 31 on Material '" << name.c_str() << "'/n";
+		std::cout << "ERROR: Tex ID > 31 on Material '" << Name.c_str() << "'/n";
 		return;
 	}
 
@@ -208,7 +240,7 @@ void Material::ApplyUniformSampler2D_s(unsigned int id, std::string loc, Texture
 
 	if (id >= 32)
 	{
-		std::cout << "ERROR: Tex ID > 31 on Material '" << name.c_str() << "'/n";
+		std::cout << "ERROR: Tex ID > 31 on Material '" << Name.c_str() << "'/n";
 		return;
 	}
 

@@ -7,6 +7,7 @@
 Texture::Texture(std::string loc, GLint minFilter, GLint magFilter)
 {
 	LoadTexture(loc.c_str(), minFilter, magFilter);
+	location = loc;
 }
 
 Texture::Texture()
