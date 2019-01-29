@@ -32,7 +32,7 @@ uniform int Debug;
 
 vec2 map(vec3 p)
 {
-	vec3 planePos = vec3(0.,Noise(p.xz * NoiseScale) * NoiseYBoost,0.);
+	vec3 planePos = vec3(0.,min(FBMNoise(p.xz * NoiseScale,6),.5) * NoiseYBoost,0.);
 	vec3 s = opRepXZ(SpherePos-p, vec3(10., 0. ,10.));
 
 	return OpU2(vec2(sdSphere(s,1.0), 2.),
@@ -157,8 +157,8 @@ void main()
             
             float occ = calcAO(p,n);
             
-        	col = vec3(NDotL+.5) * shadow * occ;
-            col *= f+1.0 ;
+        	//col = vec3(NDotL+.5) * shadow * occ;
+            col = vec3(1.0) * (p.y / NoiseYBoost);//f+1.0 ;
 
 			// plane material
 			if(m.y == 1.)

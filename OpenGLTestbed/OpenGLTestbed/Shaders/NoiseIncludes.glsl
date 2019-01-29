@@ -25,4 +25,20 @@ float Noise(vec2 uv)
         	(tr - br) * u.x * u.y;
 }
 
+float FBMNoise(vec2 uv, int octaves)
+{
+	float value = 0.0;
+	float amp = .5;
+	float freq = 0.;
+
+	for(int i = 0; i < octaves; i++)
+	{
+		value += amp * Noise(uv);
+		uv *= 2.;
+		amp *= .5;
+	}
+	return value;
+
+}
+
 #endif
