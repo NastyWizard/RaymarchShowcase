@@ -1,11 +1,10 @@
 #version 330 core
 
-#define MAXSTEPS 512
+#define MAXSTEPS 1024
 #define MAXDIST 200.
 #define PI 3.14159265359
 
-#include "Shaders/SDFIncludes.glsl"
-#include "Shaders/SDFIncludes.glsl"
+#include "Shaders/NoiseIncludes.glsl"
 #include "Shaders/SDFIncludes.glsl"
 
 out vec4 FragColor;
@@ -21,11 +20,13 @@ uniform mat4x4 ObjectMatrix;
 
 uniform vec3 SpherePos;
 uniform vec4 SphereColor;
-uniform vec4 SpherezColor;
+uniform vec4 GroundColor;
+uniform vec2 NoiseScale;
+uniform int MaxSteps;
 
 float map(vec3 p)
 {
-	return min(sdSphere(opRepXZ(SpherePos-p, vec3(10.,2.,10.)),1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));;
+	return min(sdSphere(opRepXZ((Noise(p.xz * NoiseScale) * SpherePos)-p, vec3(10., 0. ,10.)),1.0),sdPlane(vec3(0.,Noise(p.xz * NoiseScale),0.)-p,vec3(0.,-1.,0.)));
 	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
 }
 
@@ -93,7 +94,7 @@ void main()
 	
 	// set up camera
     vec2 sp =  (2.0*fragCoord.xy-resolution.xy) / resolution.y;
-    vec3 ro = vec3(sin(time*.5)*2.,3.,4.);
+    vec3 ro = vec3(0.0,3.,0.0);
     vec3 rd = normalize(vec3(sp,-2.));
 	rd = rotateY(rd, (sin(time * .5) + sin(time * .25)) * (PI * .5));
     //
@@ -118,12 +119,10 @@ void main()
     
     float t = 0.;
     
-    for(int i = 0; i < MAXSTEPS; i++)
+    for(int i = 0; i < MaxSteps; i++)
     {
     	vec3 p = ro + rd * t;
         float d = map(p);
-        
-		
 		
 		fog = smoothstep(minFogDist, maxFogDist, distance(p, ro));
 		fog = pow(fog, fogPow) * fogScale;
@@ -137,9 +136,9 @@ void main()
             float NDotL = dot(n,lightDir);
             float iNDotL = dot(n,-lightDir);
             NDotL = max(NDotL,0.);
-           	iNDotL = max(iNDotL,0.);
-            float shadow = softshadow(p,lightDir,.1,16.,16.)+.1;
-			shadow = pow(shadow,.4);
+            float shadow = softshadow(p,lightDir,.1,4.,16.)+.1;
+			shadow = clamp(shadow,.5,1.);
+
             // fresnel
             float NDotV = dot(n, rd); 
             float fscale= 2.;
@@ -154,9 +153,13 @@ void main()
         	col = vec3(NDotL+.5) * shadow * occ;
             col *= f+1.0 ;
 
+			vec3 gc = GroundColor.xyz;
+
+			gc *= Noise(p.xz * NoiseScale);
+
 			// plane material
 			if(p.y < -.99)
-				col *= vec3(1.0,.5,.5);
+				col *= gc;
 			else // sphere mat
 				col *= SphereColor.xyz;
 
@@ -177,7 +180,4 @@ void main()
     }
     // Output to screen
     FragColor = vec4(mix(col, fogCol, fog) + sun, 1.0);
-
-
-	//FragColor = mix(texel,texel2,0.5);//vec4(vTexCoord,0.0f, 1.0f);
 }

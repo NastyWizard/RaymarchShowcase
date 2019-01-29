@@ -23,5 +23,5 @@ public:
 
 	void Update();
 	void Render();
-	void ShowObjectMenu(Object* o);
+	//void ShowObjectMenu(Object* o);
 };

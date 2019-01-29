@@ -5,6 +5,10 @@
 // primitives
 float sdSphere(vec3 p, float r)
 {
+	//float ran = Noise(p.xy * 3.);
+	//
+	//ran = clamp(ran,.15,1.);
+
 	return length(p) - r;
 }
 

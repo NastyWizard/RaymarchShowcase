@@ -233,6 +233,9 @@
     <ClInclude Include="Color.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\UIHelpers.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\default.frag">
@@ -250,6 +253,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\SDFIncludes.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\NoiseIncludes.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

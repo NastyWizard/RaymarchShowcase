@@ -172,6 +172,7 @@
     <ClInclude Include="Graphics\MeshPrimitives.h" />
     <ClInclude Include="Graphics\Shader.h" />
     <ClInclude Include="Graphics\Texture.h" />
+    <ClInclude Include="Graphics\UIHelpers.h" />
     <ClInclude Include="Libraries\imgui\imconfig.h" />
     <ClInclude Include="Libraries\imgui\imgui.h" />
     <ClInclude Include="Libraries\imgui\imgui_impl_glfw.h" />
@@ -202,6 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\defaultIncludes.glsl" />
+    <None Include="Shaders\NoiseIncludes.glsl" />
     <None Include="Shaders\RayTest.frag" />
     <None Include="Shaders\SDFIncludes.glsl" />
   </ItemGroup>
