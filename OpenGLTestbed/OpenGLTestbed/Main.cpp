@@ -49,6 +49,36 @@ int main()
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
+
+	// custom style
+	ImVec4* colors = ImGui::GetStyle().Colors;
+	colors[ImGuiCol_WindowBg] = ImVec4(0.13f, 0.13f, 0.13f, 1.00f);
+	colors[ImGuiCol_FrameBg] = ImVec4(0.42f, 0.42f, 0.42f, 1.00f);
+	colors[ImGuiCol_FrameBgHovered] = ImVec4(0.49f, 0.49f, 0.49f, 1.00f);
+	colors[ImGuiCol_FrameBgActive] = ImVec4(0.53f, 0.53f, 0.53f, 1.00f);
+	colors[ImGuiCol_TitleBgActive] = ImVec4(0.42f, 0.42f, 0.42f, 1.00f);
+	colors[ImGuiCol_Button] = ImVec4(0.42f, 0.42f, 0.42f, 1.00f);
+	colors[ImGuiCol_ButtonHovered] = ImVec4(0.67f, 0.67f, 0.67f, 1.00f);
+	colors[ImGuiCol_ButtonActive] = ImVec4(0.70f, 0.70f, 0.70f, 1.00f);
+	colors[ImGuiCol_Header] = ImVec4(0.23f, 0.23f, 0.23f, 1.00f);
+	colors[ImGuiCol_HeaderHovered] = ImVec4(0.70f, 0.70f, 0.70f, 0.80f);
+	colors[ImGuiCol_HeaderActive] = ImVec4(0.42f, 0.42f, 0.42f, 1.00f);
+	colors[ImGuiCol_Separator] = ImVec4(0.40f, 0.40f, 0.40f, 0.50f);
+	colors[ImGuiCol_Tab] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+	colors[ImGuiCol_TabHovered] = ImVec4(0.67f, 0.70f, 0.72f, 1.00f);
+	colors[ImGuiCol_TabActive] = ImVec4(0.42f, 0.42f, 0.42f, 1.00f);
+	colors[ImGuiCol_TabUnfocused] = ImVec4(0.13f, 0.13f, 0.13f, 1.00f);
+	colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.25f, 0.25f, 0.25f, 1.00f);
+	colors[ImGuiCol_CheckMark] = ImVec4(1.00f, 0.51f, 0.29f, 1.00f);
+	colors[ImGuiCol_SliderGrab] = ImVec4(1.00f, 0.51f, 0.29f, 1.00f);
+	colors[ImGuiCol_SliderGrabActive] = ImVec4(1.00f, 0.59f, 0.41f, 1.00f);
+	colors[ImGuiCol_Button] = ImVec4(1.00f, 0.51f, 0.29f, 1.00f);
+	colors[ImGuiCol_ButtonHovered] = ImVec4(1.00f, 0.71f, 0.58f, 1.00f);
+	colors[ImGuiCol_ButtonActive] = ImVec4(1.00f, 0.74f, 0.40f, 1.00f);
+
+
+
+
 	InitScenes();
 
 	while (!glfwWindowShouldClose(window))

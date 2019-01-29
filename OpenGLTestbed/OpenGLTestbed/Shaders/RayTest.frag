@@ -149,7 +149,6 @@ void main()
             
             float occ = calcAO(p,n);
             
-            
         	col = vec3(NDotL+.5) * shadow * occ;
             col *= f+1.0 ;
 

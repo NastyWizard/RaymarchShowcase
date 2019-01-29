@@ -25,7 +25,7 @@ TestScene::TestScene() : Scene("TestScene")
 	testObj->GetMaterial()->AddUniformColor("SphereColor", 1.f, 1.f, 1.f, 1.f);
 	testObj->GetMaterial()->AddUniformColor("GroundColor", 1.f, .35f, .35f, 1.f);
 	testObj->GetMaterial()->AddUniformInt("MaxSteps", 512);
-	testObj->GetMaterial()->AddUniformFloat2("NoiseScale", 1.f,1.f);
+	testObj->GetMaterial()->AddUniformFloat2("NoiseScale", .5f,.5f);
 
 	AddChild(testObj);
 }
