@@ -3,9 +3,10 @@
 #include "Scene\Scenes\TestScene.h"
 #include "Util\Time.h"
 #include "Util\Window.h"
-#include "Libraries/imgui/imgui.h"
-#include "Libraries/imgui/imgui_impl_glfw.h"
-#include "Libraries/imgui/imgui_impl_opengl3.h"
+#include "Graphics\UIHelpers.h"
+#include "Libraries\imgui/imgui.h"
+#include "Libraries\imgui/imgui_impl_glfw.h"
+#include "Libraries\imgui/imgui_impl_opengl3.h"
 #include <iostream>
 #include <memory>
 
@@ -19,8 +20,8 @@ int main()
 	const char* glsl_version = "#version 150";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); 
+	glfwWindowHint(GLFW_DECORATED, false);
 	// initialize window
 	GLFWwindow* window = glfwCreateWindow(Window::width, Window::height, "Testbed v1.0", nullptr, nullptr);
 	if (window == nullptr) 
@@ -29,7 +30,15 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
-	
+	Window::window = window;
+
+	const HWND desktopWindow = GetDesktopWindow();
+	RECT res;
+	res.right = GetSystemMetrics(SM_CXSCREEN);
+	res.bottom = GetSystemMetrics(SM_CYSCREEN);
+
+	glfwSetWindowPos(window,(res.right/2) - Window::width / 2, (res.bottom/2) - Window::height/ 2);
+
 	glfwMakeContextCurrent(window); 
 	glfwSwapInterval(1); // vsync
 
@@ -91,6 +100,9 @@ int main()
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+
+		ShowMenuBar();
+
 		// update
 		Update();
 		// render

@@ -12,6 +12,7 @@ private:
 	Texture* testTex;
 	Texture* testTex2;
 	float angle;
+	bool ShowOverlay;
 
 public:
 

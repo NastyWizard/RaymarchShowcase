@@ -31,4 +31,10 @@ vec3 opRepXZ(vec3 p, vec3 r)
 	res.y = p.y;
 	return res;
 }
+
+vec2 OpU2(vec2 d, vec2 d2)
+{
+	return d.x < d2.x ? d : d2;
+}
+
 #endif 

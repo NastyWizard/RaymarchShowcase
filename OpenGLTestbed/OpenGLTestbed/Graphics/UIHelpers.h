@@ -1,7 +1,100 @@
 #pragma once
 #include "../Objects/Object.h"
 #include "../Libraries/imgui/imgui.h"
+#include "../Util/Window.h"
+#include <glad\glad.h>
+#include <GLFW\glfw3.h>
 #include <algorithm>
+
+static bool dragging;
+
+inline static void ShowMenuBar() 
+{
+	if (ImGui::BeginMainMenuBar()) 
+	{
+		int x, y;
+		
+		if (ImGui::GetMousePos().y < 20)
+		{
+			if (ImGui::IsMouseClicked(0))
+				dragging = true;
+		}
+
+		if (dragging)
+		{
+			glfwGetWindowPos(Window::window, &x, &y);
+
+			ImVec2 deltaPos = ImGui::GetMouseDragDelta();
+
+			glfwSetWindowPos(Window::window, x + deltaPos.x, y + deltaPos.y);
+		}
+
+		if (!ImGui::IsMouseDown(0)) dragging = false;
+
+
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Close")) 
+			{
+				Window::Close();
+			}
+			ImGui::EndMenu();
+		}
+
+		ImGui::Separator();
+
+		if (ImGui::BeginMenu("Edit"))
+		{
+
+			ImGui::EndMenu();
+		}
+
+		ImGui::Separator();
+
+		if(ImGui::Button("Close")) 
+		{
+			Window::Close();
+		}
+
+		ImGui::EndMainMenuBar();
+	}
+}
+
+inline static void ShowPerformanceOverlay(bool* p_open)
+{
+	const float DISTANCE = 20.0f;
+	static int corner = 0;
+	ImVec2 window_pos = ImVec2((corner & 1) ? ImGui::GetIO().DisplaySize.x - DISTANCE : DISTANCE, (corner & 2) ? ImGui::GetIO().DisplaySize.y - DISTANCE : DISTANCE);
+	ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
+	if (corner != -1)
+		ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+	ImGui::SetNextWindowBgAlpha(0.3f); // Transparent background
+	if (ImGui::Begin("Example: Simple overlay", p_open, (corner != -1 ? ImGuiWindowFlags_NoMove : 0) | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui::Text("Dear ImGui %s", ImGui::GetVersion());
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+		ImGui::Separator();
+		if (ImGui::IsMousePosValid())
+			ImGui::Text("Mouse Position: (%.1f,%.1f)", ImGui::GetIO().MousePos.x, ImGui::GetIO().MousePos.y);
+		else
+			ImGui::Text("Mouse Position: <invalid>");
+		if (ImGui::BeginPopupContextWindow())
+		{
+			if (ImGui::MenuItem("Custom", NULL, corner == -1)) corner = -1;
+			if (ImGui::MenuItem("Top-left", NULL, corner == 0)) corner = 0;
+			if (ImGui::MenuItem("Top-right", NULL, corner == 1)) corner = 1;
+			if (ImGui::MenuItem("Bottom-left", NULL, corner == 2)) corner = 2;
+			if (ImGui::MenuItem("Bottom-right", NULL, corner == 3)) corner = 3;
+			if (p_open && ImGui::MenuItem("Close")) *p_open = false;
+			ImGui::EndPopup();
+		}
+	}
+	ImGui::End();
+}
+
+
+////////////////////////////////////////////////////
 
 inline void ShowObjectMenu(Object* o)
 {

@@ -18,15 +18,25 @@ uniform sampler2D MainTex;
 uniform sampler2D MainTex2;
 uniform mat4x4 ObjectMatrix;
 
+uniform	float MinFogDist;
+uniform float MaxFogDist;
+uniform float NoiseYBoost;
+
 uniform vec3 SpherePos;
 uniform vec4 SphereColor;
 uniform vec4 GroundColor;
+uniform vec4 FogColor;
 uniform vec2 NoiseScale;
 uniform int MaxSteps;
+uniform int Debug;
 
-float map(vec3 p)
+vec2 map(vec3 p)
 {
-	return min(sdSphere(opRepXZ((Noise(p.xz * NoiseScale) * SpherePos)-p, vec3(10., 0. ,10.)),1.0),sdPlane(vec3(0.,Noise(p.xz * NoiseScale),0.)-p,vec3(0.,-1.,0.)));
+	vec3 planePos = vec3(0.,Noise(p.xz * NoiseScale) * NoiseYBoost,0.);
+	vec3 s = opRepXZ(SpherePos-p, vec3(10., 0. ,10.));
+
+	return OpU2(vec2(sdSphere(s,1.0), 2.),
+	vec2(sdPlane(planePos-p, vec3(0.,-1.,0.)), 1.));
 	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
 }
 
@@ -34,9 +44,9 @@ vec3 calcNormal(in vec3 p)
 {
     const float eps = 0.0001;
     const vec2 h = vec2(eps,0);
-    return normalize( vec3(map(p+h.xyy) - map(p-h.xyy),
-                           map(p+h.yxy) - map(p-h.yxy),
-                           map(p+h.yyx) - map(p-h.yyx) ) );
+    return normalize( vec3(map(p+h.xyy).x - map(p-h.xyy).x,
+                           map(p+h.yxy).x - map(p-h.yxy).x,
+                           map(p+h.yyx).x - map(p-h.yyx).x ) );
 }
 
 // soft shadow function by iq
@@ -47,7 +57,7 @@ float softshadow( in vec3 ro, in vec3 rd, float mint, float maxt, float k )
     float ph = 1e20;
     for( float t=mint; t < maxt; )
     {
-        float h = map(ro + rd*t);
+        float h = map(ro + rd*t).x;
         if( h<0.001 )
             return 0.0;
         float y = h*h/(2.0*ph);
@@ -68,7 +78,7 @@ float calcAO(vec3 p, vec3 n)
     for(int i = 0; i < 5; i++)
     {
         float h = 0.00 + 0.15*float(i)/4.0;
-        float d = map(p + h*n);
+        float d = map(p + h*n).x;
         occ += (h-d)*sca;
         sca *= .95;
     }
@@ -108,11 +118,8 @@ void main()
 	
 	// fog stuff
 	
-	float minFogDist = 40.f;
-	float maxFogDist = 60.f;
 	float fogPow = 1.f;
 	float fogScale = 1.f;
-	vec3 fogCol = vec3(0.3, 0.6, 0.9);
 	float fog = 0.;
 
 	//
@@ -122,12 +129,13 @@ void main()
     for(int i = 0; i < MaxSteps; i++)
     {
     	vec3 p = ro + rd * t;
-        float d = map(p);
+		vec2 m = map(p);
+        float d = m.x;
 		
-		fog = smoothstep(minFogDist, maxFogDist, distance(p, ro));
+		fog = smoothstep(MinFogDist, MaxFogDist, distance(p, ro));
 		fog = pow(fog, fogPow) * fogScale;
 
-        if(t > maxFogDist) break;
+        if(t > MaxFogDist) break;
         
         // draw
         if(d < 0.001)
@@ -152,23 +160,22 @@ void main()
         	col = vec3(NDotL+.5) * shadow * occ;
             col *= f+1.0 ;
 
-			vec3 gc = GroundColor.xyz;
-
-			gc *= Noise(p.xz * NoiseScale);
-
 			// plane material
-			if(p.y < -.99)
-				col *= gc;
+			if(m.y == 1.)
+				col *= GroundColor.xyz;
 			else // sphere mat
 				col *= SphereColor.xyz;
 
 			// -------- debug renders --------
 
 			// normal render
-            //col = n;
+			if(Debug == 1)
+				col = n;
 			
 			// depth render in relation to fog edge
-			//col = vec3(distance(p,ro)) / maxFogDist;
+			
+			if(Debug == 2)
+				col = vec3(distance(p,ro)) / MaxFogDist;
 			
 			// -------- debug renders --------
 
@@ -178,5 +185,5 @@ void main()
         t += d;
     }
     // Output to screen
-    FragColor = vec4(mix(col, fogCol, fog) + sun, 1.0);
+    FragColor = vec4(mix(col, FogColor.rgb, fog) + sun, 1.0);
 }
