@@ -51,10 +51,10 @@ inline static void ShowMenuBar()
 
 		ImGui::Separator();
 
-		if(ImGui::Button("Close")) 
-		{
-			Window::Close();
-		}
+		//if(ImGui::Button("Close")) 
+		//{
+		//	Window::Close();
+		//}
 
 		ImGui::EndMainMenuBar();
 	}
@@ -72,7 +72,6 @@ inline static void ShowPerformanceOverlay(bool* p_open)
 	if (ImGui::Begin("Example: Simple overlay", p_open, (corner != -1 ? ImGuiWindowFlags_NoMove : 0) | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		ImGui::Text("Dear ImGui %s", ImGui::GetVersion());
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 		ImGui::Separator();
 		if (ImGui::IsMousePosValid())

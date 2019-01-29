@@ -21,7 +21,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); 
-	glfwWindowHint(GLFW_DECORATED, false);
+	//glfwWindowHint(GLFW_DECORATED, false);
 	// initialize window
 	GLFWwindow* window = glfwCreateWindow(Window::width, Window::height, "Testbed v1.0", nullptr, nullptr);
 	if (window == nullptr) 
