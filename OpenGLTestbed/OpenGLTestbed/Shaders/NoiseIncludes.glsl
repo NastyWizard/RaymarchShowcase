@@ -4,6 +4,23 @@
 
 float Random(vec2 v){ return(fract(sin(dot(v, vec2(89.1843,26.8526)))*56881.168487)); }
 
+
+
+float NoiseTexture2d(vec3 p, sampler2D img)
+{
+	vec3 i = floor(p);
+	vec3 f = fract(p);
+	
+	// interpolation
+    vec3 u = f*f*f*(f*(f*6.-15.)+10.);
+
+	vec2 uv = (p.xy + vec2(37.,17.)*p.z) + f.xy;
+	vec2 rg = texture(img, (uv + .5) / 256.).yx;
+
+	return -1. + 2. * mix(rg.x,rg.y,f.z);
+
+}
+
 float Noise(vec2 uv)
 {
     vec2 i = floor(uv);

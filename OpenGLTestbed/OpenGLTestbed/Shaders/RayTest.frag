@@ -30,13 +30,16 @@ uniform vec2 NoiseScale;
 uniform int MaxSteps;
 uniform int Debug;
 
+
 vec2 map(vec3 p)
 {
-	vec3 planePos = vec3(0.,min(FBMNoise(p.xz * NoiseScale,6),.5) * NoiseYBoost,0.);
-	vec3 s = opRepXZ(SpherePos-p, vec3(10., 0. ,10.));
 
+	float y =  0.0;//NoiseTexture2d(p, MainTex2);
+	vec3 planePos = vec3(0., y,0.);
+
+	vec3 s = opRepXZ(SpherePos-p, vec3(10., 0.,10.));
 	return OpU2(vec2(sdSphere(s,1.0), 2.),
-	vec2(sdPlane(planePos-p, vec3(0.,-1.,0.)), 1.));
+		vec2(planePos.y + p.y, 1.));
 	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
 }
 
@@ -106,7 +109,7 @@ void main()
     vec2 sp =  (2.0*fragCoord.xy-resolution.xy) / resolution.y;
     vec3 ro = vec3(0.0,3.,0.0);
     vec3 rd = normalize(vec3(sp,-2.));
-	rd = rotateY(rd, (sin(time * .5) + sin(time * .25)) * (PI * .5));
+	//rd = rotateY(rd, (sin(time * .5) + sin(time * .25)) * (PI * .5));
     //
 	
     vec3 lightDir = normalize(vec3(sin(time),sin(time*2.)*.5 + .75,cos(time)));
@@ -124,7 +127,7 @@ void main()
 
 	//
     
-    float t = 0.;
+    float t = 0.001;
     
     for(int i = 0; i < MaxSteps; i++)
     {
@@ -157,8 +160,7 @@ void main()
             
             float occ = calcAO(p,n);
             
-        	//col = vec3(NDotL+.5) * shadow * occ;
-            col = vec3(1.0) * (p.y / NoiseYBoost);//f+1.0 ;
+        	col = vec3(NDotL+.5) * shadow * occ;
 
 			// plane material
 			if(m.y == 1.)
@@ -173,10 +175,13 @@ void main()
 				col = n;
 			
 			// depth render in relation to fog edge
-			
 			if(Debug == 2)
 				col = vec3(distance(p,ro)) / MaxFogDist;
 			
+			// Number of steps to draw the pixel, full red = max steps, black = very few steps
+			if(Debug == 3)
+				col = vec3(float(i) / float(MaxSteps), 0., 0.);	
+
 			// -------- debug renders --------
 
             break;

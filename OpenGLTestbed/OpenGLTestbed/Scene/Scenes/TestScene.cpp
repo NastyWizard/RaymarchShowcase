@@ -18,6 +18,7 @@ TestScene::TestScene() : Scene("TestScene")
 	testObj->transform.scale = vec3(1.f);
 	testObj->transform.rotation.SetAngleAxis(DegToRad(0.f), vec3::UnitZ());
 
+	// TODO: add options for filter mode / wrap mode / vertical flip
 	testObj->GetMaterial()->AddUniformSampler2D("MainTex", testTex);
 	testObj->GetMaterial()->AddUniformSampler2D("MainTex2", testTex2);
 
