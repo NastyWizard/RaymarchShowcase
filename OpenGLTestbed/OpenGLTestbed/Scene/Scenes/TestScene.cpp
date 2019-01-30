@@ -24,18 +24,19 @@ TestScene::TestScene() : Scene("TestScene")
 
 	testObj->GetMaterial()->AddUniformInt("Debug", 0);
 	testObj->GetMaterial()->AddUniformInt("MaxSteps", 512);
+	testObj->GetMaterial()->AddUniformInt("FractalIterations", 3);
 
-	testObj->GetMaterial()->AddUniformFloat3("SpherePos", 0.f, 0.f, 0.f);
+	testObj->GetMaterial()->AddUniformFloat3("CameraPos", 0.f, 0.f, 5.f); 
 
-	testObj->GetMaterial()->AddUniformColor("SphereColor", 1.f, 1.f, 1.f, 1.f);
+	testObj->GetMaterial()->AddUniformColor("SphereColor", .9f, .78f, .64f, 1.f);
 	testObj->GetMaterial()->AddUniformColor("GroundColor", 1.f, .35f, .35f, 1.f);
-	testObj->GetMaterial()->AddUniformColor("FogColor", 0.2f, .35f, .8f, 1.f);
+	testObj->GetMaterial()->AddUniformColor("FogColor", 0.34f, .59f, .91f, 1.f);
 
 
 	testObj->GetMaterial()->AddUniformFloat2("NoiseScale", .25f,.25f);
 
-	testObj->GetMaterial()->AddUniformFloat("MinFogDist", 40.f);
-	testObj->GetMaterial()->AddUniformFloat("MaxFogDist", 60.f);
+	testObj->GetMaterial()->AddUniformFloat("MinFogDist", 2.f);
+	testObj->GetMaterial()->AddUniformFloat("MaxFogDist", 25.f);
 	testObj->GetMaterial()->AddUniformFloat("NoiseYBoost", 2.f);
 	
 	// TODO: Make XML save and load for uniform values

@@ -2,8 +2,8 @@
 
 #define MAXSTEPS 1024
 #define MAXDIST 200.
-#define PI 3.14159265359
 
+#include "Shaders/DefaultIncludes.glsl"
 #include "Shaders/NoiseIncludes.glsl"
 #include "Shaders/SDFIncludes.glsl"
 
@@ -12,8 +12,6 @@ out vec4 FragColor;
 varying vec3 vPos;
 varying vec2 vTexCoord;
 
-uniform float time;
-uniform vec2 resolution;
 uniform sampler2D MainTex;
 uniform sampler2D MainTex2;
 uniform mat4x4 ObjectMatrix;
@@ -22,7 +20,7 @@ uniform	float MinFogDist;
 uniform float MaxFogDist;
 uniform float NoiseYBoost;
 
-uniform vec3 SpherePos;
+uniform vec3 CameraPos;
 uniform vec4 SphereColor;
 uniform vec4 GroundColor;
 uniform vec4 FogColor;
@@ -33,14 +31,8 @@ uniform int Debug;
 
 vec2 map(vec3 p)
 {
-
-	float y =  0.0;//NoiseTexture2d(p, MainTex2);
-	vec3 planePos = vec3(0., y,0.);
-
-	vec3 s = opRepXZ(SpherePos-p, vec3(10., 0.,10.));
-	return OpU2(vec2(sdSphere(s,1.0), 2.),
-		vec2(planePos.y + p.y, 1.));
-	//return min(sdSphere(vec3(0.0,0.0,-10.0)-p,1.0),sdPlane(vec3(0.,0.,0.)-p,vec3(0.,-1.,0.)));
+	float sponge = sdMengerSponge(rotateY(p,-time));
+	return vec2(sponge,0.0);
 }
 
 vec3 calcNormal(in vec3 p)
@@ -88,15 +80,6 @@ float calcAO(vec3 p, vec3 n)
     return clamp(1. - 1.5 * occ, 0.1, 1.);
 }
 
-vec3 rotateY(vec3 p, float angle)
-{
-	mat3x3 rMat;
-	rMat[0] = vec3(cos(angle), 0., -sin(angle));
-	rMat[1] = vec3(0., 1., 0.);
-	rMat[2] = vec3(sin(angle), 0., cos(angle));
-	return rMat * p;
-}
-
 void main()
 {
 	
@@ -107,7 +90,7 @@ void main()
 	
 	// set up camera
     vec2 sp =  (2.0*fragCoord.xy-resolution.xy) / resolution.y;
-    vec3 ro = vec3(0.0,3.,0.0);
+    vec3 ro = CameraPos;
     vec3 rd = normalize(vec3(sp,-2.));
 	//rd = rotateY(rd, (sin(time * .5) + sin(time * .25)) * (PI * .5));
     //
