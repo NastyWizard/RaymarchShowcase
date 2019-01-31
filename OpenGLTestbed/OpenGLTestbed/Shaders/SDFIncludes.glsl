@@ -40,14 +40,6 @@ float sdCross(vec3 p)
 	return min(d1, min(d2,d3)) - 1.0;
 }
 
-vec3 rotateY(vec3 p, float angle)
-{
-	mat3x3 rMat;
-	rMat[0] = vec3(cos(angle), 0., -sin(angle));
-	rMat[1] = vec3(0., 1., 0.);
-	rMat[2] = vec3(sin(angle), 0., cos(angle));
-	return rMat * p;
-}
 
 uniform int FractalIterations;
 

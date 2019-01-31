@@ -31,7 +31,7 @@ uniform int Debug;
 
 vec2 map(vec3 p)
 {
-	float sponge = sdMengerSponge(rotateY(p,-time * .5),rotateY(p,time * .6) + time * .25);
+	float sponge = sdMengerSponge(rotateZ(rotateY(p, time*.15),-time * .5),rotateX(p,time * .6) + time * .25);
 	float plane = sdPlane(p,vec3(0.,1.,0.));
 	return OpU2(vec2(sponge,2.), vec2(plane, 1.0));
 }
