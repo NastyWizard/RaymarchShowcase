@@ -41,7 +41,8 @@ TestScene::TestScene() : Scene("TestScene")
 	
 	// TODO: Make XML save and load for uniform values
 
-	ShowOverlay = true;
+    ShowOverlay = true;
+    ShowDemoMenu = false;
 	AddChild(testObj);
 }
 
@@ -55,7 +56,11 @@ TestScene::~TestScene()
 void TestScene::Update()
 {
 	Scene::Update();
-	ImGui::ShowDemoWindow();
+
+    ShowMenuBar(&ShowDemoMenu);
+
+    if(ShowDemoMenu)
+	    ImGui::ShowDemoWindow();
 
 	if(ShowOverlay)
 		ShowPerformanceOverlay(&ShowOverlay);

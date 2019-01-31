@@ -8,28 +8,28 @@
 
 static bool dragging;
 
-inline static void ShowMenuBar() 
+inline static void ShowMenuBar(bool* ShowDemoMenu) 
 {
 	if (ImGui::BeginMainMenuBar()) 
 	{
-		int x, y;
-		
-		if (ImGui::GetMousePos().y < 20)
-		{
-			if (ImGui::IsMouseClicked(0))
-				dragging = true;
-		}
-
-		if (dragging)
-		{
-			glfwGetWindowPos(Window::window, &x, &y);
-
-			ImVec2 deltaPos = ImGui::GetMouseDragDelta();
-
-			glfwSetWindowPos(Window::window, x + deltaPos.x, y + deltaPos.y);
-		}
-
-		if (!ImGui::IsMouseDown(0)) dragging = false;
+		//int x, y;
+		//
+		//if (ImGui::GetMousePos().y < 20)
+		//{
+		//	if (ImGui::IsMouseClicked(0))
+		//		dragging = true;
+		//}
+        //
+		//if (dragging)
+		//{
+		//	glfwGetWindowPos(Window::window, &x, &y);
+        //
+		//	ImVec2 deltaPos = ImGui::GetMouseDragDelta();
+        //
+		//	glfwSetWindowPos(Window::window, x + deltaPos.x, y + deltaPos.y);
+		//}
+        //
+		//if (!ImGui::IsMouseDown(0)) dragging = false;
 
 
 		if (ImGui::BeginMenu("File"))
@@ -43,11 +43,20 @@ inline static void ShowMenuBar()
 
 		ImGui::Separator();
 
-		if (ImGui::BeginMenu("Edit"))
-		{
+        if (ImGui::BeginMenu("Edit"))
+        {
 
-			ImGui::EndMenu();
-		}
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("View"))
+        {
+            if (ImGui::MenuItem("DemoMenu")) 
+            {
+                *ShowDemoMenu = !*ShowDemoMenu;
+            }
+            ImGui::EndMenu();
+        }
 
 		ImGui::Separator();
 

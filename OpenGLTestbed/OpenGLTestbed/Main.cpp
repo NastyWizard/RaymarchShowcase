@@ -101,8 +101,6 @@ int main()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		ShowMenuBar();
-
 		// update
 		Update();
 		// render
