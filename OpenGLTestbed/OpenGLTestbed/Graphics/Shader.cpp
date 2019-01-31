@@ -65,14 +65,15 @@ void Shader::HandleIncludes(char* in, char*& out)
 	while(pos != std::string::npos)
 	{
 		// get shader location
-		size_t eol = in_s.find("\n", pos);
 		size_t urlPos = in_s.find("\"", pos) + sizeof(BYTE);
 		assert(urlPos != std::string::npos);
+
+		size_t eol = in_s.find("\"", urlPos + 1) + 1;
 
 		size_t fileNameSize = eol - urlPos;
 
 		char* fileName = (char*)malloc(fileNameSize);
-		strncpy_s(fileName, fileNameSize, in_s.c_str() + urlPos, fileNameSize - (sizeof(BYTE)*2));
+		strncpy_s(fileName, fileNameSize, in_s.c_str() + urlPos, fileNameSize - (sizeof(BYTE)));
 
 		// clear the line
 		in_s.erase(pos, eol - pos);
