@@ -29,7 +29,7 @@ TestScene::TestScene() : Scene("TestScene")
 	testObj->GetMaterial()->AddUniformFloat3("CameraPos", 0.f, 0.f, 5.f); 
 
 	testObj->GetMaterial()->AddUniformColor("SphereColor", .9f, .78f, .64f, 1.f);
-	testObj->GetMaterial()->AddUniformColor("GroundColor", 1.f, .35f, .35f, 1.f);
+	testObj->GetMaterial()->AddUniformColor("GroundColor", .69f, .78f, .8f, 1.f);
 	testObj->GetMaterial()->AddUniformColor("FogColor", 0.34f, .59f, .91f, 1.f);
 
 

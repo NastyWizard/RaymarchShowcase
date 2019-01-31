@@ -31,8 +31,9 @@ uniform int Debug;
 
 vec2 map(vec3 p)
 {
-	float sponge = sdMengerSponge(rotateY(p,-time));
-	return vec2(sponge,0.0);
+	float sponge = sdMengerSponge(rotateY(p,-time * .5),rotateY(p,time * .6) + time * .25);
+	float plane = sdPlane(p,vec3(0.,1.,0.));
+	return OpU2(vec2(sponge,2.), vec2(plane, 1.0));
 }
 
 vec3 calcNormal(in vec3 p)
@@ -129,7 +130,7 @@ void main()
             vec3 n = calcNormal(p);
             float NDotL = dot(n,lightDir);
             float iNDotL = dot(n,-lightDir);
-            NDotL = max(NDotL,0.);
+            NDotL = max(NDotL,0.1);
             float shadow = softshadow(p,lightDir,.1,4.,16.)+.1;
 			shadow = clamp(shadow,.5,1.);
 
@@ -148,7 +149,7 @@ void main()
 			// plane material
 			if(m.y == 1.)
 				col *= GroundColor.xyz;
-			else // sphere mat
+			else
 				col *= SphereColor.xyz;
 
 			// -------- debug renders --------
@@ -163,7 +164,7 @@ void main()
 			
 			// Number of steps to draw the pixel, full red = max steps, black = very few steps
 			if(Debug == 3)
-				col = vec3(float(i) / float(MaxSteps), 0., 0.);	
+				col = vec3(float(i) / float(MaxSteps), 0., 0.);
 
 			// -------- debug renders --------
 

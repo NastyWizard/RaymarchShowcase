@@ -68,21 +68,20 @@ float sdFractalCross(vec3 p)
    return d;
 }
 
-float sdMengerSponge(vec3 p)
+float sdMengerSponge(vec3 p, vec3 p2)
 {
 	float d = sdBox(p,vec3(1.0));
+	float s = 1.0;
+	for( int m=0; m<FractalIterations; m++ )
+	{
+	   vec3 a = mod( p2*s, 2.0 )-1.0;
+	   s *= 3.0;
+	   vec3 r = 1.0 - 3.0*abs(a);
 
-   float s = 1.0;
-   for( int m=0; m<FractalIterations; m++ )
-   {
-      vec3 a = mod( p*s, 2.0 )-1.0;
-      s *= 3.0;
-      vec3 r = 1.0 - 3.0*abs(a);
-
-      float c = sdCross(rotateY(r,time))/s;
-      d = max(d,c);
-   }
-   return d;
+	   float c = sdCross(r)/s;
+	   d = max(d,c);
+	}
+	return d;
 }
 
 // operations
