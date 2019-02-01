@@ -31,9 +31,14 @@ uniform int Debug;
 
 vec2 map(vec3 p)
 {
-	float sponge = sdMengerSponge(rotateZ(rotateY(p, time*.15),-time * .5),rotateX(p,time * .6) + time * .25);
+	vec3 rp = opRepXZ(p,vec3(4.,1.,4.));
+
+	float sponge = sdMengerSponge(rotateZ(rotateY(rp, time*.15),-time * .5),rotateX(rp,time * .6) + time * .25);
 	float plane = sdPlane(p,vec3(0.,1.,0.));
-	return OpU2(vec2(sponge,2.), vec2(plane, 1.0));
+
+	vec2 sSponge = vec2(OpI(sponge,sdSphere(rp,1.)),2.);
+
+	return OpU2(sSponge, vec2(plane, 1.0));
 }
 
 vec3 calcNormal(in vec3 p)

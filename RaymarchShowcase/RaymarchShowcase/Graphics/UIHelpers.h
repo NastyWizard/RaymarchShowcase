@@ -8,7 +8,7 @@
 
 static bool dragging;
 
-inline static void ShowMenuBar(bool* ShowDemoMenu) 
+inline static void ShowMenuBar(bool* ShowAnyMenu, bool* ShowDemoMenu)
 {
 	if (ImGui::BeginMainMenuBar()) 
 	{
@@ -49,12 +49,15 @@ inline static void ShowMenuBar(bool* ShowDemoMenu)
             ImGui::EndMenu();
         }
 
+		ImGui::Separator();
         if (ImGui::BeginMenu("View"))
         {
-            if (ImGui::MenuItem("DemoMenu")) 
-            {
+			if (ImGui::MenuItem("Show/Hide All"))
+				*ShowAnyMenu = !*ShowAnyMenu;
+
+            if (ImGui::MenuItem("Demo Menu")) 
                 *ShowDemoMenu = !*ShowDemoMenu;
-            }
+
             ImGui::EndMenu();
         }
 

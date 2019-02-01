@@ -32,17 +32,14 @@ TestScene::TestScene() : Scene("TestScene")
 	testObj->GetMaterial()->AddUniformColor("GroundColor", .69f, .78f, .8f, 1.f);
 	testObj->GetMaterial()->AddUniformColor("FogColor", 0.34f, .59f, .91f, 1.f);
 
-
-	testObj->GetMaterial()->AddUniformFloat2("NoiseScale", .25f,.25f);
-
 	testObj->GetMaterial()->AddUniformFloat("MinFogDist", 2.f);
 	testObj->GetMaterial()->AddUniformFloat("MaxFogDist", 25.f);
-	testObj->GetMaterial()->AddUniformFloat("NoiseYBoost", 2.f);
 	
 	// TODO: Make XML save and load for uniform values
 
     ShowOverlay = true;
     ShowDemoMenu = false;
+	ShowAnyMenu = true;
 	AddChild(testObj);
 }
 
@@ -57,14 +54,17 @@ void TestScene::Update()
 {
 	Scene::Update();
 
-    ShowMenuBar(&ShowDemoMenu);
+    ShowMenuBar(&ShowAnyMenu, &ShowDemoMenu);
 
-    if(ShowDemoMenu)
-	    ImGui::ShowDemoWindow();
+	if (ShowAnyMenu)
+	{
+		if (ShowDemoMenu)
+			ImGui::ShowDemoWindow();
 
-	if(ShowOverlay)
-		ShowPerformanceOverlay(&ShowOverlay);
-	ShowObjectMenu(testObj);
+		if (ShowOverlay)
+			ShowPerformanceOverlay(&ShowOverlay);
+		ShowObjectMenu(testObj);
+	}
 
 	if (testObj->GetMaterial()->GetUniformFloat("MinFogDist") >= testObj->GetMaterial()->GetUniformFloat("MaxFogDist"))
 		testObj->GetMaterial()->SetUniformFloat("MinFogDist", testObj->GetMaterial()->GetUniformFloat("MaxFogDist") - 1.f);

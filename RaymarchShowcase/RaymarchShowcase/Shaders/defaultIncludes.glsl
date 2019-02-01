@@ -11,6 +11,8 @@
 uniform float time;
 uniform vec2 resolution;
 
+float maxcomp2(vec2 a) { return max(a.x,a.y); }
+
 vec3 rotateX(vec3 p, float angle)
 {
 	mat3x3 rMat;

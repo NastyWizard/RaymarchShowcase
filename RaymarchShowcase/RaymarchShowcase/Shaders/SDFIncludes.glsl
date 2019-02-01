@@ -1,17 +1,11 @@
 #ifndef _SDF_INCLUDES_
 #define _SDF_INCLUDES_
 
-float maxcomp2(vec2 a) { return max(a.x,a.y); }
-
 // Signed distance fields includes, for raymarching
 
 // primitives
 float sdSphere(vec3 p, float r)
 {
-	//float ran = Noise(p.xy * 3.);
-	//
-	//ran = clamp(ran,.15,1.);
-
 	return length(p) - (r);
 }
 
@@ -25,6 +19,11 @@ float sdBox(vec3 p, vec3 b)
 {
 	vec3 d = abs(p) - b;
 	return length(max(d,0.));
+}
+
+float sdCylinder(vec3 p, vec3 c)
+{
+	return length(p.xz-c.xy)-c.z;
 }
 
 float sdCross(vec3 p)
@@ -90,11 +89,22 @@ vec3 opRepXZ(vec3 p, vec3 r)
 	return res;
 }
 
+// union
 vec2 OpU2(vec2 d, vec2 d2)
 {
 	return d.x < d2.x ? d : d2;
 }
 
-//
+// intersection
+float OpI(float d, float d2)
+{
+	return max(d, d2);
+}
+
+// subtraction 
+vec2 OpS2(vec2 d, vec2 d2)
+{
+	return -d.x > d2.x ? d : d2;
+}
 
 #endif 
