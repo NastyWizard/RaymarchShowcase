@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLTestbed", "OpenGLTestbed\OpenGLTestbed.vcxproj", "{BA864909-82E9-4274-8005-B5F0EA8F313E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RaymarchShowcase", "RaymarchShowcase\RaymarchShowcase.vcxproj", "{BA864909-82E9-4274-8005-B5F0EA8F313E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -23,7 +23,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); 
 	//glfwWindowHint(GLFW_DECORATED, false);
 	// initialize window
-	GLFWwindow* window = glfwCreateWindow(Window::width, Window::height, "Testbed v1.0", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(Window::width, Window::height, "Casey MacNeil - Raymarching", nullptr, nullptr);
 	if (window == nullptr) 
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
