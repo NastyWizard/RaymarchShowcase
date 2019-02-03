@@ -31,14 +31,48 @@ uniform int Debug;
 
 vec2 map(vec3 p)
 {
-	vec3 rp = opRepXZ(p,vec3(4.,1.,4.));
 
-	float sponge = sdMengerSponge(rotateZ(rotateY(rp, time*.15),-time * .5),rotateX(rp,time * .6) + time * .25);
+
+	// SCREW AND GEAR
+	vec3 gp = p;
+	gp.y = mod(gp.y, .6) - .3;
+	gp.y = min(gp.y, 4.);
+
+	if(mod(floor(p.y / .6), 2.) == 0.)
+	{
+		gp = rotateY(gp,time * .25);
+	}
+	else
+	{
+		gp = rotateY(gp,-time * .5);
+	}
+
+	float screw = sdScrew(p,vec2(1.,4.));
+
+	float gear = sdGear(gp);
+	gear = OpS(sdPlane(vec3(0.,2.,0.)-p,vec3(0,1.,0.)),gear);
+	
+	vec2 res = OpU2(vec2(screw,0.), vec2(gear, 2.)); 
+
+	// SPONGE
+	vec3 sp = vec3(0.,4.5,0.) - p;
+
+	float sponge = sdMengerSponge(rotateZ(rotateY(sp, time*.15),-time * .5),rotateX(sp,time * .6) + time * .25);
+	vec2 sSponge = vec2(OpI(sponge,sdSphere(sp,1.)),2.);
+	
+	res = OpU2(res, sSponge);
+	
+	sp.x -= sin(time) * 4.;
+	sp.z -= cos(time) * 4.;
+
+	float spongeOrbit = sdMengerSponge(rotateZ(rotateY(sp, time*.15),-time * .5),rotateX(sp,time * .6) + time * .25);
+	sSponge = vec2(OpI(spongeOrbit,sdSphere(sp,1.)),2.);
+	
+	res = OpU2(res, sSponge);
+
+	// END
 	float plane = sdPlane(p,vec3(0.,1.,0.));
-
-	vec2 sSponge = vec2(OpI(sponge,sdSphere(rp,1.)),2.);
-
-	return OpU2(sSponge, vec2(plane, 1.0));
+	return OpU2(res, vec2(plane, 1.0));
 }
 
 vec3 calcNormal(in vec3 p)

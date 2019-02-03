@@ -72,19 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectDir)\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\Libraries\x32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\Libraries\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\Libraries\x32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)\Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)\Libraries\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
