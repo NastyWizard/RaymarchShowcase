@@ -52,7 +52,7 @@ vec2 map(vec3 p)
 	float gear = sdGear(gp);
 	gear = OpS(sdPlane(vec3(0.,2.,0.)-p,vec3(0,1.,0.)),gear);
 	
-	vec2 res = OpU2(vec2(screw,0.), vec2(gear, 2.)); 
+	vec2 res = OpU2(vec2(screw,3.), vec2(gear, 4.)); 
 
 	// SPONGE
 	vec3 sp = vec3(0.,4.5,0.) - p;
@@ -176,20 +176,25 @@ void main()
             // fresnel
             float NDotV = dot(n, rd); 
             float fscale= 2.;
-            float fpow  =4.;
-            float fbump = -.91;
+            float fpow  =2.;
+            float fbump = -.5;
             float f = 1.-pow(NDotV,fpow) * fscale;
             f = max(f+fbump,0.);
             
             float occ = calcAO(p,n);
             
         	col = vec3(NDotL+.5) * shadow * occ;
+			col += f * occ;
 
 			// plane material
 			if(m.y == 1.)
 				col *= GroundColor.xyz;
-			else
+			else if(m.y == 2.)
 				col *= SphereColor.xyz;
+			else if(m.y == 3.)
+				col *= vec3(.45,.45,.5);
+			else if(m.y == 4.)
+				col *= vec3(.67,.65,.4);
 
 			// -------- debug renders --------
 
